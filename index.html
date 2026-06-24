@@ -561,7 +561,7 @@
         </section>
     </main>
 
-    <script>
+ <script>
         // --- DATA LAYER INSTANTIATION ---
         const DataLayer = {
             init() {
@@ -972,7 +972,7 @@
 
         searchInput.addEventListener('input', (e) => renderRegistry(e.target.value));
 
-     // --- ARTIFICIAL AGENTS CHAT LOGIC DRIVERS ---
+        // --- ARTIFICIAL AGENTS CHAT LOGIC DRIVERS ---
         
         // Dynamic Typing Streaming Simulation
         function streamMessage(containerId, fullText, senderClass) {
@@ -1010,7 +1010,7 @@
             document.getElementById(`${agentType}-lock-notice`).style.display = 'none';
             const inputArea = document.getElementById(`${agentType}-input-area`);
             inputArea.style.opacity = '1';
-            inputArea.style.pointer-events = 'auto';
+            inputArea.style.pointerEvents = 'auto'; // Fixed: CamelCase prevents parsing syntax crash
             document.getElementById(`${agentType}-input`).disabled = false;
             document.getElementById(`${agentType}-send`).disabled = false;
         }
