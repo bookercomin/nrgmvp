@@ -387,6 +387,7 @@
         <button data-tab="visualization">Executive Visualizer</button>
     </nav>
 
+
     <main>
         <section id="knowledge" class="tab-content active">
             <h2 style="color: var(--nrg-green);">Employee Knowledge Layer (Central Registry)</h2>
@@ -475,73 +476,27 @@
 
         <section id="onboarding" class="tab-content">
             <h2 style="color: var(--nrg-cyan);">Onboarding AI Companion</h2>
-            <p style="margin-bottom: 15px;">Reads real-time data status vectors directly out of the shared Memory layer to support active compliance paths.</p>
-            
-            <div id="onboarding-deck" class="prompt-deck">
-                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'checklist', 'My first-week checklist')">
-                    <div class="prompt-card-title">💬 My first-week checklist</div>
-                    <div class="prompt-card-desc">Create a practical first-week onboarding checklist for a new employee based on their target track.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'policy', 'Explain a policy clearly')">
-                    <div class="prompt-card-title">💬 Explain a policy clearly</div>
-                    <div class="prompt-card-desc">Explain an onboarding or HR policy in simple language and target current compliance gaps.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'training', 'Plan my training time')">
-                    <div class="prompt-card-title">💬 Plan my training time</div>
-                    <div class="prompt-card-desc">Help me build a realistic plan to complete my required tracking certifications.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'escalate', 'What should I escalate?')">
-                    <div class="prompt-card-title">💬 What should I escalate?</div>
-                    <div class="prompt-card-desc">Tell me whether this onboarding issue should be escalated and track core risk vectors.</div>
-                </div>
-            </div>
-
-            <div class="chat-container">
-                <div class="chat-messages" id="onboarding-chat">
-                    <div class="message bot">System: Connection established with system context. Please select a guided prompt above to initialize the session.</div>
-                </div>
-                <div id="onboarding-lock-notice" class="chat-disabled-notice">⚠️ You must select a guided configuration pathway above before typing is unlocked.</div>
-                <div class="chat-input-area" id="onboarding-input-area" style="opacity: 0.4; pointer-events: none;">
-                    <button id="onboarding-mic" title="Click to speak" style="background: white; border: none; font-size: 20px; padding: 0 15px; cursor: pointer; border-right: 1px solid #ddd;" disabled>🎙️</button>
-                    <input type="text" id="onboarding-input" placeholder="Type or speak your message here..." disabled>
-                    <button id="onboarding-send" style="background-color: var(--nrg-cyan)" disabled>Query</button>
-                </div>
+            <p>The onboarding agent runs as a Microsoft Copilot pipeline. Click below to launch it in a new tab.</p>
+            <br>
+            <div class="external-card" style="border-color: var(--nrg-cyan);">
+                <div style="font-size: 48px;">📦</div>
+                <h3>Microsoft Copilot — Onboarding Agent</h3>
+                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Onboarding AI Agent built in Microsoft Copilot Studio.</p>
+                <!-- ✏️  PASTE your Copilot onboarding agent URL into the href below -->
+                <a href="https://m365.cloud.microsoft/chat/?titleId=T_1c91f31a-c3ba-dca5-da0e-34be2dc69392&source=embedded-builder" target="_blank" style="background: var(--nrg-cyan); color: white;">Launch Onboarding Agent ✨</a>
             </div>
         </section>
 
         <section id="offboarding" class="tab-content">
             <h2 style="color: var(--nrg-magenta);">Offboarding Automation Agent</h2>
-            <p style="margin-bottom: 15px;">Queries the internal Memory layer to generate secure operational pipelines during employee transitions.</p>
-            
-            <div id="offboarding-deck" class="prompt-deck">
-                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'interview', 'Start Interview')">
-                    <div class="prompt-card-title">💬 Start Interview</div>
-                    <div class="prompt-card-desc">Run a professional offboarding interview for a departing employee to log operational context.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'transfer', 'Knowledge Transfer')">
-                    <div class="prompt-card-title">💬 Knowledge Transfer</div>
-                    <div class="prompt-card-desc">Turn these offboarding notes into a knowledge transfer report covering tribal technical workarounds.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'risk', 'Risk Review')">
-                    <div class="prompt-card-title">💬 Risk Review</div>
-                    <div class="prompt-card-desc">Identify operational risks and knowledge gaps from this employee profile's system metrics.</div>
-                </div>
-                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'feedback', 'Feedback Summary')">
-                    <div class="prompt-card-title">💬 Feedback Summary</div>
-                    <div class="prompt-card-desc">Summarize this exit interview into positives, improvements, and primary departure drivers.</div>
-                </div>
-            </div>
-
-            <div class="chat-container">
-                <div class="chat-messages" id="offboarding-chat">
-                    <div class="message bot">System: Connection established with system context. Please select a guided prompt above to initialize the session.</div>
-                </div>
-                <div id="offboarding-lock-notice" class="chat-disabled-notice">⚠️ You must select a guided configuration pathway above before typing is unlocked.</div>
-                <div class="chat-input-area" id="offboarding-input-area" style="opacity: 0.4; pointer-events: none;">
-                    <button id="offboarding-mic" title="Click to speak" style="background: white; border: none; font-size: 20px; padding: 0 15px; cursor: pointer; border-right: 1px solid #ddd;" disabled>🎙️</button>
-                    <input type="text" id="offboarding-input" placeholder="Type or speak your message here..." disabled>
-                    <button id="offboarding-send" style="background-color: var(--nrg-magenta)" disabled>Process</button>
-                </div>
+            <p>The offboarding agent runs as a Microsoft Copilot pipeline. Click below to launch it in a new tab.</p>
+            <br>
+            <div class="external-card" style="border-color: var(--nrg-magenta);">
+                <div style="font-size: 48px;">🔄</div>
+                <h3>Microsoft Copilot — Offboarding Agent</h3>
+                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Offboarding AI Agent built in Microsoft Copilot Studio.</p>
+                <!-- ✏️  PASTE your Copilot offboarding agent URL into the href below -->
+                <a href="https://m365.cloud.microsoft/chat/?titleId=T_664f1389-9087-6d60-cb2f-b6d79894d630&source=embedded-builder" target="_blank" style="background: var(--nrg-magenta); color: white;">Launch Offboarding Agent ✨</a>
             </div>
         </section>
 
@@ -995,237 +950,11 @@
 
         if (searchInput) searchInput.addEventListener('input', (e) => renderRegistry(e.target.value));
 
-        // --- ARTIFICIAL AGENTS CHAT LOGIC DRIVERS ---
-        function appendMessageDirect(containerId, text, sender) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            const msg = document.createElement('div');
-            msg.className = `message ${sender}`;
-            msg.innerText = text;
-            container.appendChild(msg);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function unlockChatInterface(agentType) {
-            document.getElementById(`${agentType}-lock-notice`).style.display = 'none';
-            const inputArea = document.getElementById(`${agentType}-input-area`);
-            inputArea.style.opacity = '1';
-            inputArea.style.pointerEvents = 'auto'; // Fix for the syntax crash
-            document.getElementById(`${agentType}-input`).disabled = false;
-            document.getElementById(`${agentType}-send`).disabled = false;
-            
-            const micBtn = document.getElementById(`${agentType}-mic`);
-            if (micBtn) micBtn.disabled = false;
-        }
-
-        function triggerGuidedPrompt(agent, actionId, actionTitle) {
-            unlockChatInterface(agent);
-            const chatContainerId = `${agent}-chat`;
-            const currentEmployee = DataLayer.getEmployee(window.activeTargetEmployeeId);
-
-            if (!currentEmployee) {
-                appendMessageDirect(chatContainerId, "System Error: No valid contextual employee record selected in the registry.", "bot");
-                return;
-            }
-
-            appendMessageDirect(chatContainerId, `[System Prompt Action initiated]: ${actionTitle} for employee ${currentEmployee.name}`, "user");
-
-            let systemOutput = "";
-
-            if (agent === 'onboarding') {
-                switch(actionId) {
-                    case 'checklist':
-                        systemOutput = `Welcome! As the organization's Onboarding Agent, my goal is to reduce onboarding friction and accelerate productivity for ${currentEmployee.name}. Based on their assignment to the ${currentEmployee.department} department as a ${currentEmployee.position}, here is their tailored Milestone Runway Checklist: Day 1: System Provisioning & Access Verification for core workflows involving ${currentEmployee.skills}. Day 3: Process Deep Dive covering internal team tools. Day 5: Complete mandatory supervisor syncs.`;
-                        break;
-                    case 'policy':
-                        systemOutput = `Hello, I am your Onboarding Agent guide. Let's look clearly at operational guidelines mapping relative to profile data for ${currentEmployee.name}. Current profile status indexes show their operational training track is currently flagged as ${currentEmployee.training}. Per security frameworks, all technical roles must clear training thresholds within 14 business days of hire. Let's schedule a checkpoint sync to ensure this flag moves cleanly to Complete.`;
-                        break;
-                    case 'training':
-                        if (currentEmployee.training === 'Complete') {
-                            systemOutput = `Verification Check complete. ${currentEmployee.name} has already verified all active operational training pathways as COMPLETE. No conflicting scheduling blocks are required at this time. Compliance metrics have been successfully transmitted to HR systems.`;
-                        } else {
-                            systemOutput = `System Tracking Action: Training status is currently marked INCOMPLETE for ${currentEmployee.name}. In accordance with my execution boundaries, I have reviewed their team availability windows. I recommend scheduling dedicated 90-minute isolation blocks on Tuesday and Thursday morning to review field methodologies and process workarounds. Shall I coordinate calendar invites?`;
-                        }
-                        break;
-                    case 'escalate':
-                        systemOutput = `Onboarding Security Subsystem Check: Under my operational rules, I am structured to recognize boundary conditions immediately. If you or ${currentEmployee.name} are encountering issues related to Payroll Disputes, Medical Accommodations, Safety Concerns, or Workplace Conflict, I am programmed to step aside. I do not interpret legal materials or approve policy exceptions. Please confirm if your query involves an active operational roadblock so I can execute an immediate escalation sequence to HR.`;
-                        break;
-                }
-            } else if (agent === 'offboarding') {
-                switch(actionId) {
-                    case 'interview':
-                        systemOutput = `Thank you for taking the time to meet today. My role is to help preserve valuable knowledge and gather feedback that can help the organization improve. This conversation is intended to be constructive, professional, and confidential within company guidelines. Let's begin exploring your structural departure pathing for ${currentEmployee.name}. To understand their day-to-day operations as a ${currentEmployee.position}, my logs show their historical transcript notes state: "${currentEmployee.notes.substring(0, 150)}..." Can you expand clearly on the main technical bottlenecks encountered during this specific workflow cycle?`;
-                        break;
-                    case 'transfer':
-                        systemOutput = `Generating Structured Knowledge Transfer Log Asset for Management Review. ROLE CAPTURE STRUCTURE: Managing daily workloads as ${currentEmployee.position} within the ${currentEmployee.department} team. SYSTEM TOOL METRICS: High-level dependency track mapped to ${currentEmployee.skills}. INTERNAL PROCESS WORKAROUND SUMMARY: Reviewing active transcriber notes payload: "${currentEmployee.notes}". This data block has been successfully converted into a structured system archive artifact to ensure their replacement has immediate reference material.`;
-                        break;
-                    case 'risk':
-                        let equipmentRisk = currentEmployee.equipment === 'Yes' ? "Warning: Workstation asset equipment deployment tracking is active YES. Security protocol requires manual device hardware revocation to prevent access leaks." : "Asset check complete: No corporate hardware is currently checked out to this profile index.";
-                        systemOutput = `Executive Operational Risk Analytics Report Profile TARGET ${currentEmployee.id}. VOLATILITY CHECK: Critical tribal knowledge risk detected. The target notes identify legacy software workarounds and manual cache-clearing procedures that are undocumented in team training wikis. HARDWARE STATE: ${equipmentRisk}. LIFE-CYCLE TRACK: Exit Interview Status parameter is currently logged as ${currentEmployee.exit}. Immediate documentation update recommended before authorization tokens are terminated.`;
-                        break;
-                    case 'feedback':
-                        systemOutput = `Compiling Departure Feedback Pipeline Matrices under HR Supervision for ${currentEmployee.name}. DEPARTURE VECTOR ANALYSIS: Cross-referencing operational logs to isolate friction points. Notes indicate systemic procedural delays and interface challenges within the ${currentEmployee.department} software stack. LEADERSHIP METRICS: Team dynamics tracking remains neutral. The departing employee highlights technical dependencies as the primary operational hurdle rather than managerial conflicts. This feedback is securely compiled for the upcoming HR Executive Improvement Review.`;
-                        break;
-                }
-            }
-
-            setTimeout(() => {
-                streamMessage(chatContainerId, systemOutput, "bot");
-            }, 400);
-        }
-
-        function handleCustomUserInput(agentType) {
-            const inputField = document.getElementById(`${agentType}-input`);
-            if (!inputField) return;
-            const text = inputField.value.trim();
-            if (!text) return;
-
-            const chatContainerId = `${agentType}-chat`;
-            appendMessageDirect(chatContainerId, text, "user");
-            inputField.value = '';
-
-            const currentEmployee = DataLayer.getEmployee(window.activeTargetEmployeeId) || {name: "Employee"};
-            
-            setTimeout(() => {
-                let fallbackResponse = "";
-                if (agentType === 'onboarding') {
-                    fallbackResponse = `As the Onboarding Agent, I am processing your message regarding ${currentEmployee.name}. I am programmed to maintain accuracy over confidence. If this request maps to training logs, task configurations, or workflow settings, I can pull that vector. However, "I don't have enough information to answer that accurately. Please contact your manager, HR representative, department lead, or the designated subject matter expert for guidance."`;
-                } else {
-                    fallbackResponse = `Acknowledged response parameters for the ${currentEmployee.name} exit sequence tracker. I am observing and logging this context neutrally under human resource operational oversight. Let me know if you would like me to parse these details directly into our Knowledge Transfer or Executive Summary files.`;
-                }
-                streamMessage(chatContainerId, fallbackResponse, "bot");
-            }, 500);
-        }
-
-        // Attach listeners safely
-        ['onboarding', 'offboarding'].forEach(agent => {
-            const sendBtn = document.getElementById(`${agent}-send`);
-            const inpFld = document.getElementById(`${agent}-input`);
-            if (sendBtn) sendBtn.addEventListener('click', () => handleCustomUserInput(agent));
-            if (inpFld) inpFld.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleCustomUserInput(agent); });
-        });
-
-        // ==========================================
-        // --- LIVE CONVERSATIONAL VOICE ENGINE ---
-        // ==========================================
-        let activeSpeaker = window.speechSynthesis;
-        let isLiveMicActive = false; 
-        let isAiSpeaking = false;    
-        let recognitionInstance = null;
-
-        function speakText(text, onSpeechFinished) {
-            if (!activeSpeaker) return;
-            if (activeSpeaker.speaking) activeSpeaker.cancel();
-            
-            isAiSpeaking = true;
-            let cleanText = text.replace(/•/g, '').replace(/\[|\]/g, '').replace(/\n/g, ' ');
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            
-            utterance.rate = 1.05;
-            utterance.pitch = 1.0;
-            utterance.lang = 'en-US';
-
-            utterance.onend = () => { isAiSpeaking = false; if (onSpeechFinished) onSpeechFinished(); };
-            utterance.onerror = () => { isAiSpeaking = false; if (onSpeechFinished) onSpeechFinished(); };
-
-            activeSpeaker.speak(utterance);
-        }
-
-        // Streaming text combined with audio trigger
-        function streamMessage(containerId, fullText, senderClass) {
-            const container = document.getElementById(containerId);
-            const msgNode = document.createElement('div');
-            msgNode.className = `message ${senderClass} streaming-cursor`;
-            container.appendChild(msgNode);
-            
-            const words = fullText.split(' ');
-            let currentWordIndex = 0;
-            
-            const interval = setInterval(() => {
-                if (currentWordIndex < words.length) {
-                    msgNode.innerText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
-                    currentWordIndex++;
-                    container.scrollTop = container.scrollHeight;
-                } else {
-                    clearInterval(interval);
-                    msgNode.classList.remove('streaming-cursor');
-                }
-            }, 45);
-
-            if (senderClass === 'bot') {
-                speakText(fullText, () => {
-                    if (isLiveMicActive && recognitionInstance && !isAiSpeaking) {
-                        try { 
-                            recognitionInstance.start(); 
-                            const activeInput = document.querySelector('.chat-input-area input:not([disabled])');
-                            if(activeInput) activeInput.placeholder = "Listening for your reply...";
-                        } catch(e) {}
-                    }
-                });
-            }
-        }
-
-        function enableLiveVoiceMode(agentType) {
-            const micBtn = document.getElementById(`${agentType}-mic`);
-            const inputField = document.getElementById(`${agentType}-input`);
-            if (!micBtn || !inputField) return;
-            
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                micBtn.title = "Voice not supported in this browser";
-                micBtn.style.opacity = "0.3";
-                return;
-            }
-
-            const recognition = new SpeechRecognition();
-            recognitionInstance = recognition;
-            recognition.continuous = false; 
-            recognition.interimResults = false;
-            recognition.lang = 'en-US';
-
-            micBtn.addEventListener('click', () => {
-                isLiveMicActive = !isLiveMicActive;
-
-                if (isLiveMicActive) {
-                    micBtn.innerText = '🔴 Live';
-                    micBtn.style.backgroundColor = '#ffeef2';
-                    micBtn.style.color = '#EC008C';
-                    micBtn.style.fontWeight = 'bold';
-                    micBtn.style.borderRadius = '4px';
-                    inputField.placeholder = "Listening...";
-                    try { recognition.start(); } catch(e){}
-                } else {
-                    micBtn.innerText = '🎙️';
-                    micBtn.style.backgroundColor = 'white';
-                    micBtn.style.color = 'inherit';
-                    micBtn.style.fontWeight = 'normal';
-                    inputField.placeholder = "Type or speak your message here...";
-                    recognition.stop();
-                    if (activeSpeaker && activeSpeaker.speaking) activeSpeaker.cancel(); 
-                }
-            });
-
-            recognition.onresult = (event) => {
-                if (!isLiveMicActive) return; 
-                const transcript = event.results[0][0].transcript;
-                inputField.value = transcript;
-                recognition.stop();
-                inputField.placeholder = "Agent is thinking...";
-                setTimeout(() => { handleCustomUserInput(agentType); }, 300);
-            };
-
-            recognition.onend = () => {
-                if (isLiveMicActive && !isAiSpeaking) {
-                    try { recognition.start(); inputField.placeholder = "Listening..."; } catch(e) {}
-                }
-            };
-        }
+        // Agent tabs now launch external Microsoft Copilot links — no chat engine needed.
 
         // Boot system operations
         renderRegistry();
         populateFormAndSelect('NRG-001');
-        enableLiveVoiceMode('onboarding');
-        enableLiveVoiceMode('offboarding');
     </script>
 </body>
 </html>
