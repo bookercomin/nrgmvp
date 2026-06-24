@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Lifecycle AI Portal</title>
+    <title>PowerUP 2.0</title>
     <style>
         /* Color Palette Constants */
         :root {
@@ -465,9 +465,300 @@
             init() {
                 if (!localStorage.getItem('nrg_employees')) {
                     // Seed initial clean operational mock data
-                    const seed = [
-                        { id: 'NRG-1024', name: 'Jane Doe', department: 'Renewables', position: 'Systems Engineer', skills: 'Solar, Python, AWS', training: 'Incomplete', equipment: 'No', exit: 'Not Started', notes: 'Transferred from engineering applicant pipeline pool.' },
-                        { id: 'NRG-2048', name: 'John Smith', department: 'Operations', position: 'Grid Analyst', skills: 'Risk Assessment, Analytics', training: 'Complete', equipment: 'Yes', exit: 'Pending', notes: 'Beginning voluntary separation checklist pathway.' }
+                   const seed = [
+                        {
+                            id: 'NRG-001',
+                            name: 'Marcus Vance',
+                            department: 'Renewables',
+                            position: 'Senior Solar Array Optimizer',
+                            skills: 'PVsyst, Python, SCADA integration',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Work Instructions]: Subject details the daily workflow for adjusting active tilt matrices across the West Texas solar array fields. Notes indicate a recurring manual bypass is required at 0600 UTC because the automated tracking system suffers a calibration drift on the yaw axis. Process step: Log into the SCADA panel v4.2, isolate inverter fields 12 through 18, clear the cache buffer, and manually input the geographic tracking adjustments based on the morning solar azimuth calculations. Subject notes that failing to clear the cache buffer causes the active tracking array to stall entirely, decreasing field efficiency by 14.3% over the diurnal cycle.'
+                        },
+                        {
+                            id: 'NRG-002',
+                            name: 'Elena Rostova',
+                            department: 'Grid Operations',
+                            position: 'High-Voltage Dispatch Controller',
+                            skills: 'NERC-CIP, Load Balancing, EMS',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Incident Response]: Subject walked through the procedure for emergency load shedding during peak summer congestion. The primary tool used is the legacy EMS system. When a substation transformer hits 92% thermal capacity, the controller must issue a direct balancing dispatch signal. Critical tribal knowledge: Never run the automated regional load shed macro sequentially without manually cross-checking phase angles on the secondary intertie. If phase alignment diverges by more than 7 degrees, the macro will reject the command, causing a system lockup that requires a 30-minute hard restart of the main console node.'
+                        },
+                        {
+                            id: 'NRG-003',
+                            name: 'Devon Cross',
+                            department: 'Commodity Trading',
+                            position: 'Day-Ahead Power Quantitative Analyst',
+                            skills: 'SQL, R, Time Series Forecasting',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Workflow Runbook]: Subject explains the morning data pipeline used to evaluate ERCOT market pricing strategies. Workflow begins at 04:30 AM. Subject pulls raw regional weather files, wind velocity estimates, and generator outage reports using a custom script named "price_pull_v9.R". Process bottleneck: The third-party ERCOT API regularly drops connections between 04:45 and 05:00 AM for server maintenance. If the data fetch fails, the analyst must fall back to manual scraping of the ERCOT public dashboard, copy the HTML table matrix directly into Excel, and re-run the linear regression models manually to publish position sheets before the market opens.'
+                        },
+                        {
+                            id: 'NRG-004',
+                            name: 'Sarah Jenkins',
+                            department: 'Customer Billing Ops',
+                            position: 'Enterprise Account Specialist',
+                            skills: 'SAP Utilities, Advanced Excel, Reconciliation',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Legacy Workaround]: Subject reviewed the onboarding and reconciliation loop for industrial clients. Outlined a major software bug within SAP Utilities module 4.7b where multi-site corporate accounts fail to aggregate tax exemptions properly across state lines. Workaround procedure: The specialist must download the raw usage ledger as a CSV, apply an Excel macro called "TaxFix_2024.xlsm" to adjust the state calculations, and manually create credit memos to balance the ledger. Subject stressed that if this manual balancing step is missed, clients are double-billed for municipal transmission fees, sparking formal complaints.'
+                        },
+                        {
+                            id: 'NRG-005',
+                            name: 'Kaito Tanaka',
+                            department: 'IT Security',
+                            position: 'NERC-CIP Compliance Auditor',
+                            skills: 'Firewall Auditing, Asset Management, Linux',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Compliance Mapping]: Subject details the monthly verification protocol for critical infrastructure protection (CIP-007). Explains the logging procedure for firewall rulesets on perimeter security gateways. Action items: Log into the jump host terminal using dual-token authentication, extract the raw iptables config from all active operational technology routers, and match them hash-for-hash against the master approved change ticket inventory database. If an undocumented port is discovered open, the protocol dictates immediately generating a high-priority incident token and contacting the network engineering lead on duty to isolate the node within 15 minutes.'
+                        },
+                        {
+                            id: 'NRG-006',
+                            name: 'Amara Okafor',
+                            department: 'Field Engineering',
+                            position: 'Substation Asset Inspector',
+                            skills: 'Thermal Imaging, Transformer Diagnostics',
+                            training: 'Incomplete',
+                            equipment: 'No',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Field Operations]: Subject detailed the routine inspection checklist for step-up transformers in wind generation sectors. Subject operates high-resolution thermal cameras to identify internal dielectric fluid leakage and hot spots on bushing terminals. Important process warning: Always stand upwind when testing the gas accumulation valve on older Westinghouse units built before 1998, as historical seals tend to crack under pressure, causing small oil discharges. Notes state that training has not been completed due to a scheduling conflict with the regional safety manager, meaning field operations are currently suspended.'
+                        },
+                        {
+                            id: 'NRG-007',
+                            name: 'Liam Gallagher',
+                            department: 'Supply Chain',
+                            position: 'Procurement Specialist',
+                            skills: 'Ariba, Vendor Management, Logistics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Materials Allocation]: Subject described the pipeline for securing structural components for high-voltage transmission towers. Emphasized the critical delivery pathway for heavy-gauge structural steel fasteners. Due to global supply bottlenecks, the standard Ariba automated purchase request workflow is no longer sufficient. Workaround involves calling the domestic fabrication plant directly on Tuesday mornings to verify allocation quotas before routing documents through the corporate procurement system. If this manual confirmation step is delayed past noon, fulfillment slips out by two full shipping cycles.'
+                        },
+                        {
+                            id: 'NRG-008',
+                            name: 'Chloe Dubois',
+                            department: 'Environmental Compliance',
+                            position: 'Emissions Reporting Officer',
+                            skills: 'CEMS, EPA Reporting, Data Analysis',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Regulatory Filing]: Subject walked through the daily validation tasks for Continuous Emissions Monitoring Systems (CEMS) across natural gas generation stations. Task involves extracting nitrous oxide and sulfur dioxide parts-per-million data from plant logs to ensure EPA Title V compliance. Process edge case: If a plant undergoes a rapid ramping phase to meet grid demand, the sensor probes can get fouled by sudden soot buildup, resulting in false spikes. The officer must cross-reference turbine exhaust temperatures against fuel-to-air ratios to prove the spike was an instrument error rather than an actual emissions breach.'
+                        },
+                        {
+                            id: 'NRG-009',
+                            name: 'Rajesh Patel',
+                            department: 'Data Analytics',
+                            position: 'Predictive Maintenance Data Scientist',
+                            skills: 'Python, TensorFlow, Hadoop',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Model Maintenance]: Subject discussed the training pipeline for the turbine vibration anomaly model. The script pulls streaming sensor data from the Hadoop cluster every hour. Subject highlighted a recurring failure vector where telemetry data packages arrive out of sequence due to network latency at remote geographic wind fields. The data cleaning script must use an asynchronous time-window buffering routine to sort incoming packets before feeding them into the deep learning neural network, otherwise, the system throws a matrix shape mismatch exception and crashes.'
+                        },
+                        {
+                            id: 'NRG-010',
+                            name: 'Sofia Martinez',
+                            department: 'Legal & Regulatory',
+                            position: 'Senior Tariff Counsel',
+                            skills: 'FERC Regulations, Contract Drafting, Analytics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Filings Framework]: Subject outlined the strategic approach for filing open-access transmission tariff amendments with FERC. Focuses heavily on checking precedent documents from surrounding regional transmission organizations. process map: Draft the amendment text, route it through internal executive review panels using the DocuSign portal, and submit the filing via the official FERC electronic system. Note: filings must be completed exactly 60 days before the projected operational implementation date, or the grid expansion timeline faces severe regulatory suspension penalties.'
+                        },
+                        {
+                            id: 'NRG-011',
+                            name: 'Thomas Wright',
+                            department: 'Grid Operations',
+                            position: 'SCADA Communications Technician',
+                            skills: 'DNP3 Protocol, Modbus, Fiber Optics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Network Diagnostic]: Subject explained the debugging protocol for when remote telemetry units (RTUs) drop off the network grid map. The communication backbone relies on the DNP3 serial-over-IP network protocol. Troubleshooting sequence: Remotely ping the network card, verify the serial port listener is active via an SSH terminal session, and review packet drops. Critical insight: 80% of communication drops are caused by thermal fluctuations in the uninsulated field boxes. If heat exceeds 115 degrees, the transceiver chips cycle power automatically every 4 minutes, mimicking a broken fiber line.'
+                        },
+                        {
+                            id: 'NRG-012',
+                            name: 'Yuki Sato',
+                            department: 'Renewables',
+                            position: 'Wind Farm Automation Engineer',
+                            skills: 'PLC Programming, Automation, WindPro',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Turbine Controls]: Subject detailed the software logic modifications required for cold-weather operations on turbine pitch controllers. During sub-zero atmospheric conditions, moisture freezes on blade aerodynamic profiles, altering stall parameters. The engineer must upload a modified PLC control profile that limits the maximum feathering angle to 42 degrees to prevent high structural mechanical stress on the rotor hub assembly. Failure to swap control profiles before major winter storms can lead to catastrophic physical fatigue on structural main bearings.'
+                        },
+                        {
+                            id: 'NRG-013',
+                            name: 'Nina Simone',
+                            department: 'Customer Experience',
+                            position: 'Digital Account Onboarding Lead',
+                            skills: 'Salesforce, Product Strategy, User Analytics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - System Integration]: Subject outlined the standard operations for linking large commercial customers onto the digital self-service dashboard portal. The backend uses Salesforce API queries to pull historical utility meter consumption tracking profiles. Problem statement: If the client account was migrated from the legacy billing engine, the account number formatting may contain trailing spaces that cause API lookup queries to return blank errors. The team must manually run a text-stripping macro inside Salesforce to clean up old database strings before sending client invites.'
+                        },
+                        {
+                            id: 'NRG-014',
+                            name: 'Omar Farooq',
+                            department: 'Commodity Trading',
+                            position: 'Real-Time Power Scheduler',
+                            skills: 'ISO Portals, Risk Mitigation, Excel',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Hourly Dispatch Operations]: Subject detailed the fast-paced procedure for submitting physical energy schedules to regional transmission operators every hour. Scheduler monitors real-time market pricing variations. If regional prices spike due to sudden unit outages, the scheduler must execute immediate buy-back options or ramp up internal quick-start peaking assets. Execution requires navigating across multiple separate ISO web portal screens simultaneously. Subject highlighted that a single input typo in a megawatt scheduling field can expose the company to massive financial imbalance penalties.'
+                        },
+                        {
+                            id: 'NRG-015',
+                            name: 'Jessica Taylor',
+                            department: 'IT Infrastructure',
+                            position: 'Enterprise Database Administrator',
+                            skills: 'Oracle DB, SQL Tuning, Backup Systems',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Maintenance Execution]: Subject walked through the process for conducting quarterly performance tuning optimizations on the primary consumer transactional accounting database cluster. Steps involve updating index metrics, purging stale session tables, and checking mirroring arrays. Tribal knowledge warning: Never execute database index rebuilding scripts while the automated billing cycle batches are running at midnight. Doing so creates a dead-lock condition in the transaction log storage pool, bringing down consumer portal interfaces for hours.'
+                        },
+                        {
+                            id: 'NRG-016',
+                            name: 'David Miller',
+                            department: 'Field Engineering',
+                            position: 'Substation Electrician Specialist',
+                            skills: 'Circuit Breaker Service, Safety Protocols',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Pending',
+                            notes: '[AI Transcript Summary - Operational Handover]: Subject detailed the safety protocols for isolating a 345kV sulfur hexafluoride (SF6) gas-insulated circuit breaker for scheduled physical rebuild maintenance. Emphasized absolute compliance with OSHA lockout-tagout (LOTO) protocols. Crucial field insight: Ensure the mechanical accumulator springs are completely discharged via the manual trip lever before unbolting internal inspection plates. Subject is preparing for retirement and notes that exit documentation processing is pending final verification of specialized field equipment tools return.'
+                        },
+                        {
+                            id: 'NRG-017',
+                            name: 'Rachel Green',
+                            department: 'Supply Chain',
+                            position: 'Inventory Operations Controller',
+                            skills: 'Maximo, Logistics, Inventory Control',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Warehouse Asset Management]: Subject explained the operational loop for managing replacement parts stock using IBM Maximo. Tracking critical inventory levels for wind turbine control boards and solar power inverters is essential. Due to extended manufacturer lead times, the inventory controller has implemented a custom reorder threshold metric that triggers parts purchases when warehouse levels drop below 4 active units. Process loophole: Maximo fails to track items currently checked out on field service trucks, leading to unexpected asset shortages if field engineers do not scan barcodes accurately.'
+                        },
+                        {
+                            id: 'NRG-018',
+                            name: 'Carlos Santana',
+                            department: 'Environmental Compliance',
+                            position: 'Water Quality Field Hydrologist',
+                            skills: 'Sampling, Groundwater Remediation, GIS',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Field Sampling Runbook]: Subject reviewed the routine groundwater testing procedures around coal-ash repository basins. Field technician collects samples from 14 perimeter monitoring wells twice a month. Critical task parameter: Wells must be completely purged using low-flow peristaltic pumps for at least 20 minutes prior to sample collection to guarantee stagnant casing water does not skew heavy metal concentration readings. Samples must be sealed inside zero-headspace glass vials, packed in ice, and couriered to the testing laboratory within 24 hours to preserve sample data validity.'
+                        },
+                        {
+                            id: 'NRG-019',
+                            name: 'Monika Fischer',
+                            department: 'HR Operations',
+                            position: 'Technical Talent Acquisition Lead',
+                            skills: 'Workday ATS, Workforce Planning',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Recruiting Pipeline Management]: Subject mapped the sourcing pipeline for high-demand specialized grid operations controllers. Hiring process requires syncing candidate background profiles across security screening systems due to federal NERC-CIP background clearance guidelines. Process issue: Workday recruiter portals do not automatically pass background investigation results to the onboarding operations team. Recruiters must manually extract PDF approval tokens and email them directly to the corporate security lead to initiate IT laptop provisioning procedures.'
+                        },
+                        {
+                            id: 'NRG-020',
+                            name: 'Aiden Brooks',
+                            department: 'Data Analytics',
+                            position: 'Business Intelligence Architect',
+                            skills: 'Tableau, Alteryx, Data Warehousing',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - ETL Deployment Pipeline]: Subject explained the Extract-Transform-Load (ETL) pipeline used to generate the monthly generation capacity KPI dashboards for the executive leadership team. The platform uses Alteryx workflows to combine streaming telemetry data with corporate accounting ledger inputs. Technical constraint: The automated data ingestion sequence routinely hangs if the accounting ledger uploads rows with zero-dollar balance formats. The architect built an active cleaning node that strips zero-value lines before passing files to Tableau.'
+                        },
+                        // Generating IDs 21 through 100 with procedural patterns to ensure exactly 100 items are active
+                        ...Array.from({length: 80}, (_, i) => {
+                            const index = i + 21;
+                            const depts = ['Renewables', 'Grid Operations', 'Commodity Trading', 'Customer Billing Ops', 'IT Security', 'Field Engineering', 'Supply Chain', 'Environmental Compliance', 'Data Analytics', 'HR Operations'];
+                            const dept = depts[index % depts.length];
+                            
+                            let pos = 'Technical Associate';
+                            let skills = 'Data Management, Systems Analysis';
+                            let notes = '';
+                            
+                            if (dept === 'Renewables') {
+                                pos = 'Solar Diagnostics Engineer';
+                                skills = 'Inverter Analytics, Python, SCADA';
+                                notes = `[AI Transcript Summary - Workflow Index #${index}]: Subject details daily performance evaluation workflows on solar string inverters. Explains the manual extraction process of thermal logging files from remote combiners. Critical process note: If diagnostic flags show voltage imbalances greater than 5%, field crews must be dispatched immediately to clean dust accumulation layers off the solar arrays. Data logging must be saved daily to avoid memory overwrites on field device local chips.`;
+                            } else if (dept === 'Grid Operations') {
+                                pos = 'Substation Operations Specialist';
+                                skills = 'Load Balancing, SCADA Control, NERC-CIP';
+                                notes = `[AI Transcript Summary - System Routine #${index}]: Subject reviews standard operations for shifting grid loads across sub-transmission networks. Outlines daily coordination steps with regional control areas. Process requires entering circuit balancing metrics across the primary management grid. Warning: Do not shift reactive power parameters by more than 15 MVAR concurrently without verifying voltage control baselines, otherwise protection relays may trigger a system blackout event.`;
+                            } else if (dept === 'Commodity Trading') {
+                                pos = 'Risk Assessment Specialist';
+                                skills = 'Quantitative Modeling, SQL, Financial Analysis';
+                                notes = `[AI Transcript Summary - Market Analysis #${index}]: Subject walked through the risk profiling workflow for forward contracts. Process relies on extracting historical settlement pricing records from SQL databases and running Monte Carlo simulations. Operational problem: If clearing data is delayed on external public exchanges, the analyst must execute custom interpolation macros to generate proxy curves before executive reporting deadlines.`;
+                            } else if (dept === 'Customer Billing Ops') {
+                                pos = 'Complex Billing Auditor';
+                                skills = 'SAP, Account Auditing, Excel Macros';
+                                notes = `[AI Transcript Summary - Auditing Flow #${index}]: Subject maps out the validation pipeline for commercial and industrial billing accounts. Process requires cross-checking digital meter reads against contract riders manually for high-volume accounts. Legacy system limitation: Salesforce configuration data frequently desynchronizes from the central SAP instance, requiring manual table matching routines to prevent billing leakage.`;
+                            } else if (dept === 'IT Security') {
+                                pos = 'Cybersecurity Threat Hunter';
+                                skills = 'SIEM Logs, Network Forensic Tracking, Splunk';
+                                notes = `[AI Transcript Summary - Security Tracking #${index}]: Subject outlines the daily operational logic for hunting advanced threats inside operational technology (OT) network boundaries. Analyzes raw access control logs using Splunk dashboards. Mitigation step: If anomalous modbus traffic maps are tracked originating from external IP vectors, the firewall engineer must deploy isolation rules to prevent unauthorized PLC register modifications.`;
+                            } else if (dept === 'Field Engineering') {
+                                pos = 'Field Telemetry Inspector';
+                                skills = 'Fiber Testing, Signal Calibration, Electronics';
+                                notes = `[AI Transcript Summary - Instrument Maintenance #${index}]: Subject breaks down calibration processes for remote telemetry monitoring circuits. Emphasizes tracking optical degradation metrics along long-haul fiber interconnect lines. Workaround: If optical power levels fall below negative 22 decibels, inline cleanings must be conducted on internal connectors using specialized tools to prevent telemetry transmission dropouts.`;
+                            } else if (dept === 'Supply Chain') {
+                                pos = 'Strategic Sourcing Manager';
+                                skills = 'Contract Negotiations, Ariba, Supply Chain Mapping';
+                                notes = `[AI Transcript Summary - Sourcing Protocol #${index}]: Subject outlines lifecycle steps for managing high-voltage circuit component vendors. Tracks raw material lead times across global fabricators. Critical process detail: Standard enterprise purchase orders must include explicit logistics mitigation addendums to ensure freight forwarders provide active tracking feeds during maritime transit steps.`;
+                            } else if (dept === 'Environmental Compliance') {
+                                pos = 'Air Quality Data Auditor';
+                                skills = 'EPA Regulations, CEMS Validation, Analytics';
+                                notes = `[AI Transcript Summary - Emissions Audit #${index}]: Subject describes data reconciliation protocols for continuous air monitoring systems. Outlines processes for reviewing quarterly data accuracy test audits (RATA). Operational step: When telemetry points show calibrations drifts, data flags must be converted to maintenance states inside database scripts to avoid triggering regulatory reporting compliance penalties.`;
+                            } else if (dept === 'Data Analytics') {
+                                pos = 'Operations Intelligence Analyst';
+                                skills = 'Data Pipeline Engineering, Tableau, Python';
+                                notes = `[AI Transcript Summary - Analytics Deployment #${index}]: Subject reviews data aggregation routines feeding production health scoreboards. Telemetry frameworks process hundreds of thousands of streaming points from regional arrays. System bottleneck: Missing timestamp indices occasionally break reporting queries, requiring pre-processing data steps to backfill tracking arrays with linear interpolation metrics.`;
+                            } else {
+                                pos = 'HR Onboarding Lifecycle Specialist';
+                                skills = 'Workday, Enterprise Operations, Coordination';
+                                notes = `[AI Transcript Summary - HR Sync #${index}]: Subject reviews data coordination loops for processing new technical operational hires. Ensures all access privileges map accurately to NERC-CIP baseline positions. Problem area: System configurations fail to pass automated training reminders to new personnel, requiring the specialist to manually distribute security checklist emails on the first day of employment.`;
+                            }
+                            
+                            return {
+                                id: `NRG-${String(index).padStart(3, '0')}`,
+                                name: [
+                                    'James Smith', 'Maria Garcia', 'Robert Johnson', 'Maria Rodriguez', 'David Smith', 'Mary Smith', 'Maria Martinez', 'James Johnson', 'William Smith', 'Ruth Davis',
+                                    'Michael Smith', 'David Johnson', 'Elizabeth Smith', 'Barbara Jones', 'Susan Smith', 'Joseph Johnson', 'Jessica Smith', 'Thomas Smith', 'Sarah Johnson', 'Nancy Smith',
+                                    'Charles Smith', 'Karen Jones', 'Lisa Smith', 'Betty Jones', 'Dorothy Smith', 'Christopher Johnson', 'Sandra Smith', 'Ashley Johnson', 'Kimberly Smith', 'Donna Jones',
+                                    'Emily Smith', 'Carol Jones', 'Michelle Smith', 'Amanda Johnson', 'Emily Johnson', 'Melissa Smith', 'Deborah Smith', 'Stephanie Johnson', 'Rebecca Smith', 'Laura Johnson',
+                                    'Sharon Smith', 'Cynthia Jones', 'Kathleen Smith', 'Amy Johnson', 'Shirley Jones', 'Angela Smith', 'Helen Smith', 'Anna Johnson', 'Brenda Smith', 'Pamela Johnson',
+                                    'Nicole Smith', 'Samantha Johnson', 'Katherine Smith', 'Christine Johnson', 'Debra Smith', 'Rachel Johnson', 'Carolyn Smith', 'Janet Johnson', 'Catherine Smith', 'Maria Hernandez',
+                                    'Heather Smith', 'Diane Jones', 'Virginia Smith', 'Julie Johnson', 'Joyce Jones', 'Victoria Smith', 'Olivia Johnson', 'Kelly Smith', 'Christina Johnson', 'Lauren Smith',
+                                    'Joan Jones', 'Evelyn Smith', 'Judith Johnson', 'Megan Smith', 'Cheryl Jones', 'Andrea Smith', 'Hannah Johnson', 'Martha Smith', 'Jacqueline Johnson', 'Frances Smith'
+                                ][i] || `Employee Staff #${index}`,
+                                department: dept,
+                                position: pos,
+                                skills: skills,
+                                training: index % 5 === 0 ? 'Incomplete' : 'Complete',
+                                equipment: index % 3 === 0 ? 'No' : 'Yes',
+                                exit: index % 11 === 0 ? 'Pending' : 'Not Started',
+                                notes: notes
+                            };
+                        })
                     ];
                     localStorage.setItem('nrg_employees', JSON.stringify(seed));
                 }
