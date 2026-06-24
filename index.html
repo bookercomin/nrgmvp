@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerUP 2.0 - AI Lifecycle Portal</title>
+    <style>
+        /* Color Palette Constants */
+        :root {
+            --nrg-magenta: #EC008C;
+            --nrg-yellow: #FFD200;
+            --nrg-green: #439539;
+            --nrg-cyan: #00AEEF;
+            --nrg-blue: #333092;
+            --nrg-dark: #231F20;
+            --nrg-light: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--nrg-light);
+            color: var(--nrg-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Style */
+        header {
+            background-color: white;
+            border-bottom: 3px solid var(--nrg-blue);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-brand img {
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            color: var(--nrg-dark);
+        }
+
+        .header-text p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Navigation Tabs */
+        nav {
+            background: var(--nrg-dark);
+            display: flex;
+            overflow-x: auto;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 4px solid transparent;
+            white-space: nowrap;
+        }
+
+        nav button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        nav button.active[data-tab="knowledge"] { border-bottom-color: var(--nrg-green); }
+        nav button.active[data-tab="recruiting"] { border-bottom-color: var(--nrg-yellow); }
+        nav button.active[data-tab="onboarding"] { border-bottom-color: var(--nrg-cyan); }
+        nav button.active[data-tab="offboarding"] { border-bottom-color: var(--nrg-magenta); }
+        nav button.active[data-tab="visualization"] { border-bottom-color: var(--nrg-blue); }
+
+        /* Main Workspace Content */
+        main {
+            flex: 1;
+            padding: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        /* Form & Component Element Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            header { flex-direction: column; text-align: center; gap: 15px; }
+            .header-brand { flex-direction: column; }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button.btn-primary {
+            background-color: var(--nrg-blue);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button.btn-primary:hover { opacity: 0.9; }
+
+        /* Search & Lists */
+        .search-box {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 2px solid var(--nrg-green);
+            border-radius: 4px;
+        }
+
+        .employee-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .employee-list li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .employee-list li:hover { background: #f0f7f4; }
+
+        /* Chat Interfaces */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .chat-input-area {
+            display: flex;
+            border-top: 1px solid #ddd;
+            background: white;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            border: none;
+            padding: 15px;
+            outline: none;
+        }
+
+        .chat-input-area button {
+            background: var(--nrg-blue);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            max-width: 80%;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.bot { background: #e9ecef; align-self: flex-start; margin-right: auto;}
+        .message.user { background: var(--nrg-blue); color: white; align-self: flex-end; margin-left: auto;}
+
+        /* External Link Graphic Card */
+        .external-card {
+            text-align: center;
+            padding: 40px;
+            border: 3px dashed var(--nrg-yellow);
+            border-radius: 8px;
+            background: #fffdf0;
+        }
+
+        .external-card a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: var(--nrg-dark);
+            color: var(--nrg-yellow);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Architecture Diagram Layout */
+        .arch-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 40px 10px;
+        }
+
+        .arch-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            gap: 20px;
+        }
+
+        .arch-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            flex: 1;
+            font-weight: bold;
+            color: white;
+        }
+
+        .arch-card.recruiting { background: var(--nrg-dark); border: 2px solid var(--nrg-yellow); color: var(--nrg-yellow); }
+        .arch-card.knowledge { background: var(--nrg-green); font-size: 18px; padding: 30px; }
+        .arch-card.onboarding { background: var(--nrg-cyan); }
+        .arch-card.offboarding { background: var(--nrg-magenta); }
+
+        .arrow { font-size: 32px; font-weight: bold; color: var(--nrg-dark); }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #eee;
+            margin-top: 5px;
+        }
+
+        /* Copilot Guided Prompt Deck Styles */
+        .prompt-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .prompt-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .prompt-card-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prompt-card-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Lock state overlay for text inputs before initialization */
+        .chat-disabled-notice {
+            background: #f1f5f9;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .streaming-cursor::after {
+            content: '┃';
+            animation: blink 0.6s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+            <img src="nrg-energy.webp" alt="NRG Energy Logo" onerror="this.style.display='none';">
+            <div class="header-text">
+                <h1>Employee Lifecycle AI Portal</h1>
+                <p>Unified AI support across recruiting, onboarding, and offboarding</p>
+            </div>
+        </div>
+        <div>
+            <span style="font-size: 12px; font-weight: bold; background: #e2e8f0; padding: 6px 12px; border-radius: 20px;">Active Source: LocalStorage Memory Layer</span>
+        </div>
+    </header>
+
+    <nav>
+        <button class="active" data-tab="knowledge">Shared Knowledge Layer</button>
+        <button data-tab="recruiting">Recruiting AI</button>
+        <button data-tab="onboarding">Onboarding Agent</button>
+        <button data-tab="offboarding">Offboarding Agent</button>
+        <button data-tab="visualization">Executive Visualizer</button>
+    </nav>
+
+    <main>
+        <section id="knowledge" class="tab-content active">
+            <h2 style="color: var(--nrg-green);">Employee Knowledge Layer (Central Registry)</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Add / Update Employee Sync</h3>
+                    <br>
+                    <form id="employee-form">
+                        <div class="form-group">
+                            <label>Employee ID</label>
+                            <input type="text" id="emp-id" placeholder="e.g., NRG-1024" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="emp-name" required>
+                        </div>
+                        <div class="grid-2" style="gap:10px;">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <input type="text" id="emp-dept">
+                            </div>
+                            <div class="form-group">
+                                <label>Position</label>
+                                <input type="text" id="emp-pos">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Core Skills (Comma separated)</label>
+                            <input type="text" id="emp-skills" placeholder="Cloud, Python, Project Management">
+                        </div>
+                        <div class="grid-2" style="gap:10px;">
+                            <div class="form-group">
+                                <label>Training Status</label>
+                                <select id="emp-training">
+                                    <option value="Complete">Complete</option>
+                                    <option value="Incomplete" selected>Incomplete</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Equipment Assigned</label>
+                                <select id="emp-equip">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No" selected>No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Exit Interview Status</label>
+                            <select id="emp-exit">
+                                <option value="Not Started" selected>Not Started</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Internal Profile Notes</label>
+                            <textarea id="emp-notes" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="background-color: var(--nrg-green)">Commit to Knowledge Layer</button>
+                    </form>
+                </div>
+                <div>
+                    <h3>Global Employee Registry Lookup</h3>
+                    <br>
+                    <input type="text" id="search-input" class="search-box" placeholder="Search by name, ID or department...">
+                    <ul id="employee-list" class="employee-list"></ul>
+                    <div id="selected-profile" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-left: 4px solid var(--nrg-green); display:none;">
+                        <h4>Selected Session Target:</h4>
+                        <p id="target-display" style="font-size: 14px; margin-top: 5px;"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recruiting" class="tab-content">
+            <h2 style="color: var(--nrg-yellow); background: #231F20; padding: 10px; border-radius: 4px;">Recruiting AI Engine</h2>
+            <p>The core agent pipeline runs in our production sandbox system environment.</p>
+            <br>
+            <div class="external-card">
+                <div style="font-size: 48px;">🤖</div>
+                <h3>External Replit AI Pipeline Link</h3>
+                <p style="margin-top: 10px; color: #555;">Click the secure link wrapper below to open the interactive AI Agent interface outside this portal.</p>
+                <a href="https://replit.com" target="_blank">Launch External Replit Agent ✨</a>
+            </div>
+        </section>
+
+        <section id="onboarding" class="tab-content">
+            <h2 style="color: var(--nrg-cyan);">Onboarding AI Companion</h2>
+            <p style="margin-bottom: 15px;">Reads real-time data status vectors directly out of the shared Memory layer to support active compliance paths.</p>
+            
+            <div id="onboarding-deck" class="prompt-deck">
+                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'checklist', 'My first-week checklist')">
+                    <div class="prompt-card-title">💬 My first-week checklist</div>
+                    <div class="prompt-card-desc">Create a practical first-week onboarding checklist for a new employee based on their target track.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'policy', 'Explain a policy clearly')">
+                    <div class="prompt-card-title">💬 Explain a policy clearly</div>
+                    <div class="prompt-card-desc">Explain an onboarding or HR policy in simple language and target current compliance gaps.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'training', 'Plan my training time')">
+                    <div class="prompt-card-title">💬 Plan my training time</div>
+                    <div class="prompt-card-desc">Help me build a realistic plan to complete my required tracking certifications.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('onboarding', 'escalate', 'What should I escalate?')">
+                    <div class="prompt-card-title">💬 What should I escalate?</div>
+                    <div class="prompt-card-desc">Tell me whether this onboarding issue should be escalated and track core risk vectors.</div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="onboarding-chat">
+                    <div class="message bot">System: Connection established with system context. Please select a guided prompt above to initialize the session.</div>
+                </div>
+                <div id="onboarding-lock-notice" class="chat-disabled-notice">⚠️ You must select a guided configuration pathway above before typing is unlocked.</div>
+                <div class="chat-input-area" id="onboarding-input-area" style="opacity: 0.4; pointer-events: none;">
+                    <button id="onboarding-mic" title="Click to speak" style="background: white; border: none; font-size: 20px; padding: 0 15px; cursor: pointer; border-right: 1px solid #ddd;" disabled>🎙️</button>
+                    <input type="text" id="onboarding-input" placeholder="Type or speak your message here..." disabled>
+                    <button id="onboarding-send" style="background-color: var(--nrg-cyan)" disabled>Query</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="offboarding" class="tab-content">
+            <h2 style="color: var(--nrg-magenta);">Offboarding Automation Agent</h2>
+            <p style="margin-bottom: 15px;">Queries the internal Memory layer to generate secure operational pipelines during employee transitions.</p>
+            
+            <div id="offboarding-deck" class="prompt-deck">
+                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'interview', 'Start Interview')">
+                    <div class="prompt-card-title">💬 Start Interview</div>
+                    <div class="prompt-card-desc">Run a professional offboarding interview for a departing employee to log operational context.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'transfer', 'Knowledge Transfer')">
+                    <div class="prompt-card-title">💬 Knowledge Transfer</div>
+                    <div class="prompt-card-desc">Turn these offboarding notes into a knowledge transfer report covering tribal technical workarounds.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'risk', 'Risk Review')">
+                    <div class="prompt-card-title">💬 Risk Review</div>
+                    <div class="prompt-card-desc">Identify operational risks and knowledge gaps from this employee profile's system metrics.</div>
+                </div>
+                <div class="prompt-card" onclick="triggerGuidedPrompt('offboarding', 'feedback', 'Feedback Summary')">
+                    <div class="prompt-card-title">💬 Feedback Summary</div>
+                    <div class="prompt-card-desc">Summarize this exit interview into positives, improvements, and primary departure drivers.</div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="offboarding-chat">
+                    <div class="message bot">System: Connection established with system context. Please select a guided prompt above to initialize the session.</div>
+                </div>
+                <div id="offboarding-lock-notice" class="chat-disabled-notice">⚠️ You must select a guided configuration pathway above before typing is unlocked.</div>
+                <div class="chat-input-area" id="offboarding-input-area" style="opacity: 0.4; pointer-events: none;">
+                    <button id="offboarding-mic" title="Click to speak" style="background: white; border: none; font-size: 20px; padding: 0 15px; cursor: pointer; border-right: 1px solid #ddd;" disabled>🎙️</button>
+                    <input type="text" id="offboarding-input" placeholder="Type or speak your message here..." disabled>
+                    <button id="offboarding-send" style="background-color: var(--nrg-magenta)" disabled>Process</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="visualization" class="tab-content">
+            <h2 style="color: var(--nrg-blue);">Executive Architecture Ecosystem Map</h2>
+            <p>Visual narrative showing the continuous pipeline alignment between distributed downstream systems and our core enterprise record stack.</p>
+            
+            <div class="arch-diagram">
+                <div class="arch-card recruiting">Recruiting AI Agent Grid<br><span class="status-badge">External System (Replit)</span></div>
+                <div class="arrow">↓</div>
+                <div class="arch-card knowledge">Employee Knowledge Layer<br><span class="status-badge" style="background: white; color: var(--nrg-green)">Single Source of Truth (LocalStorage Grid)</span></div>
+                <div class="arrow">↑</div>
+                <div class="arch-row">
+                    <div class="arch-card onboarding">Onboarding Core Agent UI</div>
+                    <div class="arch-card offboarding">Offboarding Core Agent UI</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- DATA LAYER INSTANTIATION ---
+        const DataLayer = {
+            init() {
+                const existingData = localStorage.getItem('nrg_employees');
+                // Force memory rewrite if holding old data to ensure the 100 new entries load
+                if (!existingData || JSON.parse(existingData).length < 5) {
+                    const seed = [
+                        {
+                            id: 'NRG-001',
+                            name: 'Marcus Vance',
+                            department: 'Renewables',
+                            position: 'Senior Solar Array Optimizer',
+                            skills: 'PVsyst, Python, SCADA integration',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Work Instructions]: Subject details the daily workflow for adjusting active tilt matrices across the West Texas solar array fields. Notes indicate a recurring manual bypass is required at 0600 UTC because the automated tracking system suffers a calibration drift on the yaw axis. Process step: Log into the SCADA panel v4.2, isolate inverter fields 12 through 18, clear the cache buffer, and manually input the geographic tracking adjustments based on the morning solar azimuth calculations. Subject notes that failing to clear the cache buffer causes the active tracking array to stall entirely, decreasing field efficiency by 14.3% over the diurnal cycle.'
+                        },
+                        {
+                            id: 'NRG-002',
+                            name: 'Elena Rostova',
+                            department: 'Grid Operations',
+                            position: 'High-Voltage Dispatch Controller',
+                            skills: 'NERC-CIP, Load Balancing, EMS',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Incident Response]: Subject walked through the procedure for emergency load shedding during peak summer congestion. The primary tool used is the legacy EMS system. When a substation transformer hits 92% thermal capacity, the controller must issue a direct balancing dispatch signal. Critical tribal knowledge: Never run the automated regional load shed macro sequentially without manually cross-checking phase angles on the secondary intertie. If phase alignment diverges by more than 7 degrees, the macro will reject the command, causing a system lockup that requires a 30-minute hard restart of the main console node.'
+                        },
+                        {
+                            id: 'NRG-003',
+                            name: 'Devon Cross',
+                            department: 'Commodity Trading',
+                            position: 'Day-Ahead Power Quantitative Analyst',
+                            skills: 'SQL, R, Time Series Forecasting',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Workflow Runbook]: Subject explains the morning data pipeline used to evaluate ERCOT market pricing strategies. Workflow begins at 04:30 AM. Subject pulls raw regional weather files, wind velocity estimates, and generator outage reports using a custom script named "price_pull_v9.R". Process bottleneck: The third-party ERCOT API regularly drops connections between 04:45 and 05:00 AM for server maintenance. If the data fetch fails, the analyst must fall back to manual scraping of the ERCOT public dashboard, copy the HTML table matrix directly into Excel, and re-run the linear regression models manually to publish position sheets before the market opens.'
+                        },
+                        {
+                            id: 'NRG-004',
+                            name: 'Sarah Jenkins',
+                            department: 'Customer Billing Ops',
+                            position: 'Enterprise Account Specialist',
+                            skills: 'SAP Utilities, Advanced Excel, Reconciliation',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Legacy Workaround]: Subject reviewed the onboarding and reconciliation loop for industrial clients. Outlined a major software bug within SAP Utilities module 4.7b where multi-site corporate accounts fail to aggregate tax exemptions properly across state lines. Workaround procedure: The specialist must download the raw usage ledger as a CSV, apply an Excel macro called "TaxFix_2024.xlsm" to adjust the state calculations, and manually create credit memos to balance the ledger. Subject stressed that if this manual balancing step is missed, clients are double-billed for municipal transmission fees, sparking formal complaints.'
+                        },
+                        {
+                            id: 'NRG-005',
+                            name: 'Kaito Tanaka',
+                            department: 'IT Security',
+                            position: 'NERC-CIP Compliance Auditor',
+                            skills: 'Firewall Auditing, Asset Management, Linux',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Compliance Mapping]: Subject details the monthly verification protocol for critical infrastructure protection (CIP-007). Explains the logging procedure for firewall rulesets on perimeter security gateways. Action items: Log into the jump host terminal using dual-token authentication, extract the raw iptables config from all active operational technology routers, and match them hash-for-hash against the master approved change ticket inventory database. If an undocumented port is discovered open, the protocol dictates immediately generating a high-priority incident token and contacting the network engineering lead on duty to isolate the node within 15 minutes.'
+                        },
+                        {
+                            id: 'NRG-006',
+                            name: 'Amara Okafor',
+                            department: 'Field Engineering',
+                            position: 'Substation Asset Inspector',
+                            skills: 'Thermal Imaging, Transformer Diagnostics',
+                            training: 'Incomplete',
+                            equipment: 'No',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Field Operations]: Subject detailed the routine inspection checklist for step-up transformers in wind generation sectors. Subject operates high-resolution thermal cameras to identify internal dielectric fluid leakage and hot spots on bushing terminals. Important process warning: Always stand upwind when testing the gas accumulation valve on older Westinghouse units built before 1998, as historical seals tend to crack under pressure, causing small oil discharges. Notes state that training has not been completed due to a scheduling conflict with the regional safety manager, meaning field operations are currently suspended.'
+                        },
+                        {
+                            id: 'NRG-007',
+                            name: 'Liam Gallagher',
+                            department: 'Supply Chain',
+                            position: 'Procurement Specialist',
+                            skills: 'Ariba, Vendor Management, Logistics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Materials Allocation]: Subject described the pipeline for securing structural components for high-voltage transmission towers. Emphasized the critical delivery pathway for heavy-gauge structural steel fasteners. Due to global supply bottlenecks, the standard Ariba automated purchase request workflow is no longer sufficient. Workaround involves calling the domestic fabrication plant directly on Tuesday mornings to verify allocation quotas before routing documents through the corporate procurement system. If this manual confirmation step is delayed past noon, fulfillment slips out by two full shipping cycles.'
+                        },
+                        {
+                            id: 'NRG-008',
+                            name: 'Chloe Dubois',
+                            department: 'Environmental Compliance',
+                            position: 'Emissions Reporting Officer',
+                            skills: 'CEMS, EPA Reporting, Data Analysis',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Regulatory Filing]: Subject walked through the daily validation tasks for Continuous Emissions Monitoring Systems (CEMS) across natural gas generation stations. Task involves extracting nitrous oxide and sulfur dioxide parts-per-million data from plant logs to ensure EPA Title V compliance. Process edge case: If a plant undergoes a rapid ramping phase to meet grid demand, the sensor probes can get fouled by sudden soot buildup, resulting in false spikes. The officer must cross-reference turbine exhaust temperatures against fuel-to-air ratios to prove the spike was an instrument error rather than an actual emissions breach.'
+                        },
+                        {
+                            id: 'NRG-009',
+                            name: 'Rajesh Patel',
+                            department: 'Data Analytics',
+                            position: 'Predictive Maintenance Data Scientist',
+                            skills: 'Python, TensorFlow, Hadoop',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Model Maintenance]: Subject discussed the training pipeline for the turbine vibration anomaly model. The script pulls streaming sensor data from the Hadoop cluster every hour. Subject highlighted a recurring failure vector where telemetry data packages arrive out of sequence due to network latency at remote geographic wind fields. The data cleaning script must use an asynchronous time-window buffering routine to sort incoming packets before feeding them into the deep learning neural network, otherwise, the system throws a matrix shape mismatch exception and crashes.'
+                        },
+                        {
+                            id: 'NRG-010',
+                            name: 'Sofia Martinez',
+                            department: 'Legal & Regulatory',
+                            position: 'Senior Tariff Counsel',
+                            skills: 'FERC Regulations, Contract Drafting, Analytics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Filings Framework]: Subject outlined the strategic approach for filing open-access transmission tariff amendments with FERC. Focuses heavily on checking precedent documents from surrounding regional transmission organizations. process map: Draft the amendment text, route it through internal executive review panels using the DocuSign portal, and submit the filing via the official FERC electronic system. Note: filings must be completed exactly 60 days before the projected operational implementation date, or the grid expansion timeline faces severe regulatory suspension penalties.'
+                        },
+                        {
+                            id: 'NRG-011',
+                            name: 'Thomas Wright',
+                            department: 'Grid Operations',
+                            position: 'SCADA Communications Technician',
+                            skills: 'DNP3 Protocol, Modbus, Fiber Optics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Network Diagnostic]: Subject explained the debugging protocol for when remote telemetry units (RTUs) drop off the network grid map. The communication backbone relies on the DNP3 serial-over-IP network protocol. Troubleshooting sequence: Remotely ping the network card, verify the serial port listener is active via an SSH terminal session, and review packet drops. Critical insight: 80% of communication drops are caused by thermal fluctuations in the uninsulated field boxes. If heat exceeds 115 degrees, the transceiver chips cycle power automatically every 4 minutes, mimicking a broken fiber line.'
+                        },
+                        {
+                            id: 'NRG-012',
+                            name: 'Yuki Sato',
+                            department: 'Renewables',
+                            position: 'Wind Farm Automation Engineer',
+                            skills: 'PLC Programming, Automation, WindPro',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Turbine Controls]: Subject detailed the software logic modifications required for cold-weather operations on turbine pitch controllers. During sub-zero atmospheric conditions, moisture freezes on blade aerodynamic profiles, altering stall parameters. The engineer must upload a modified PLC control profile that limits the maximum feathering angle to 42 degrees to prevent high structural mechanical stress on the rotor hub assembly. Failure to swap control profiles before major winter storms can lead to catastrophic physical fatigue on structural main bearings.'
+                        },
+                        {
+                            id: 'NRG-013',
+                            name: 'Nina Simone',
+                            department: 'Customer Experience',
+                            position: 'Digital Account Onboarding Lead',
+                            skills: 'Salesforce, Product Strategy, User Analytics',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - System Integration]: Subject outlined the standard operations for linking large commercial customers onto the digital self-service dashboard portal. The backend uses Salesforce API queries to pull historical utility meter consumption tracking profiles. Problem statement: If the client account was migrated from the legacy billing engine, the account number formatting may contain trailing spaces that cause API lookup queries to return blank errors. The team must manually run a text-stripping macro inside Salesforce to clean up old database strings before sending client invites.'
+                        },
+                        {
+                            id: 'NRG-014',
+                            name: 'Omar Farooq',
+                            department: 'Commodity Trading',
+                            position: 'Real-Time Power Scheduler',
+                            skills: 'ISO Portals, Risk Mitigation, Excel',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Hourly Dispatch Operations]: Subject detailed the fast-paced procedure for submitting physical energy schedules to regional transmission operators every hour. Scheduler monitors real-time market pricing variations. If regional prices spike due to sudden unit outages, the scheduler must execute immediate buy-back options or ramp up internal quick-start peaking assets. Execution requires navigating across multiple separate ISO web portal screens simultaneously. Subject highlighted that a single input typo in a megawatt scheduling field can expose the company to massive financial imbalance penalties.'
+                        },
+                        {
+                            id: 'NRG-015',
+                            name: 'Jessica Taylor',
+                            department: 'IT Infrastructure',
+                            position: 'Enterprise Database Administrator',
+                            skills: 'Oracle DB, SQL Tuning, Backup Systems',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Maintenance Execution]: Subject walked through the process for conducting quarterly performance tuning optimizations on the primary consumer transactional accounting database cluster. Steps involve updating index metrics, purging stale session tables, and checking mirroring arrays. Tribal knowledge warning: Never execute database index rebuilding scripts while the automated billing cycle batches are running at midnight. Doing so creates a dead-lock condition in the transaction log storage pool, bringing down consumer portal interfaces for hours.'
+                        },
+                        {
+                            id: 'NRG-016',
+                            name: 'David Miller',
+                            department: 'Field Engineering',
+                            position: 'Substation Electrician Specialist',
+                            skills: 'Circuit Breaker Service, Safety Protocols',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Pending',
+                            notes: '[AI Transcript Summary - Operational Handover]: Subject detailed the safety protocols for isolating a 345kV sulfur hexafluoride (SF6) gas-insulated circuit breaker for scheduled physical rebuild maintenance. Emphasized absolute compliance with OSHA lockout-tagout (LOTO) protocols. Crucial field insight: Ensure the mechanical accumulator springs are completely discharged via the manual trip lever before unbolting internal inspection plates. Subject is preparing for retirement and notes that exit documentation processing is pending final verification of specialized field equipment tools return.'
+                        },
+                        {
+                            id: 'NRG-017',
+                            name: 'Rachel Green',
+                            department: 'Supply Chain',
+                            position: 'Inventory Operations Controller',
+                            skills: 'Maximo, Logistics, Inventory Control',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Warehouse Asset Management]: Subject explained the operational loop for managing replacement parts stock using IBM Maximo. Tracking critical inventory levels for wind turbine control boards and solar power inverters is essential. Due to extended manufacturer lead times, the inventory controller has implemented a custom reorder threshold metric that triggers parts purchases when warehouse levels drop below 4 active units. Process loophole: Maximo fails to track items currently checked out on field service trucks, leading to unexpected asset shortages if field engineers do not scan barcodes accurately.'
+                        },
+                        {
+                            id: 'NRG-018',
+                            name: 'Carlos Santana',
+                            department: 'Environmental Compliance',
+                            position: 'Water Quality Field Hydrologist',
+                            skills: 'Sampling, Groundwater Remediation, GIS',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Field Sampling Runbook]: Subject reviewed the routine groundwater testing procedures around coal-ash repository basins. Field technician collects samples from 14 perimeter monitoring wells twice a month. Critical task parameter: Wells must be completely purged using low-flow peristaltic pumps for at least 20 minutes prior to sample collection to guarantee stagnant casing water does not skew heavy metal concentration readings. Samples must be sealed inside zero-headspace glass vials, packed in ice, and couriered to the testing laboratory within 24 hours to preserve sample data validity.'
+                        },
+                        {
+                            id: 'NRG-019',
+                            name: 'Monika Fischer',
+                            department: 'HR Operations',
+                            position: 'Technical Talent Acquisition Lead',
+                            skills: 'Workday ATS, Workforce Planning',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - Recruiting Pipeline Management]: Subject mapped the sourcing pipeline for high-demand specialized grid operations controllers. Hiring process requires syncing candidate background profiles across security screening systems due to federal NERC-CIP background clearance guidelines. Process issue: Workday recruiter portals do not automatically pass background investigation results to the onboarding operations team. Recruiters must manually extract PDF approval tokens and email them directly to the corporate security lead to initiate IT laptop provisioning procedures.'
+                        },
+                        {
+                            id: 'NRG-020',
+                            name: 'Aiden Brooks',
+                            department: 'Data Analytics',
+                            position: 'Business Intelligence Architect',
+                            skills: 'Tableau, Alteryx, Data Warehousing',
+                            training: 'Complete',
+                            equipment: 'Yes',
+                            exit: 'Not Started',
+                            notes: '[AI Transcript Summary - ETL Deployment Pipeline]: Subject explained the Extract-Transform-Load (ETL) pipeline used to generate the monthly generation capacity KPI dashboards for the executive leadership team. The platform uses Alteryx workflows to combine streaming telemetry data with corporate accounting ledger inputs. Technical constraint: The automated data ingestion sequence routinely hangs if the accounting ledger uploads rows with zero-dollar balance formats. The architect built an active cleaning node that strips zero-value lines before passing files to Tableau.'
+                        },
+                        // Generating IDs 21 through 100 with procedural patterns to ensure exactly 100 items are active
+                        ...Array.from({length: 80}, (_, i) => {
+                            const index = i + 21;
+                            const depts = ['Renewables', 'Grid Operations', 'Commodity Trading', 'Customer Billing Ops', 'IT Security', 'Field Engineering', 'Supply Chain', 'Environmental Compliance', 'Data Analytics', 'HR Operations'];
+                            const dept = depts[index % depts.length];
+                            
+                            let pos = 'Technical Associate';
+                            let skills = 'Data Management, Systems Analysis';
+                            let notes = '';
+                            
+                            if (dept === 'Renewables') {
+                                pos = 'Solar Diagnostics Engineer';
+                                skills = 'Inverter Analytics, Python, SCADA';
+                                notes = `[AI Transcript Summary - Workflow Index #${index}]: Subject details daily performance evaluation workflows on solar string inverters. Explains the manual extraction process of thermal logging files from remote combiners. Critical process note: If diagnostic flags show voltage imbalances greater than 5%, field crews must be dispatched immediately to clean dust accumulation layers off the solar arrays. Data logging must be saved daily to avoid memory overwrites on field device local chips.`;
+                            } else if (dept === 'Grid Operations') {
+                                pos = 'Substation Operations Specialist';
+                                skills = 'Load Balancing, SCADA Control, NERC-CIP';
+                                notes = `[AI Transcript Summary - System Routine #${index}]: Subject reviews standard operations for shifting grid loads across sub-transmission networks. Outlines daily coordination steps with regional control areas. Process requires entering circuit balancing metrics across the primary management grid. Warning: Do not shift reactive power parameters by more than 15 MVAR concurrently without verifying voltage control baselines, otherwise protection relays may trigger a system blackout event.`;
+                            } else if (dept === 'Commodity Trading') {
+                                pos = 'Risk Assessment Specialist';
+                                skills = 'Quantitative Modeling, SQL, Financial Analysis';
+                                notes = `[AI Transcript Summary - Market Analysis #${index}]: Subject walked through the risk profiling workflow for forward contracts. Process relies on extracting historical settlement pricing records from SQL databases and running Monte Carlo simulations. Operational problem: If clearing data is delayed on external public exchanges, the analyst must execute custom interpolation macros to generate proxy curves before executive reporting deadlines.`;
+                            } else if (dept === 'Customer Billing Ops') {
+                                pos = 'Complex Billing Auditor';
+                                skills = 'SAP, Account Auditing, Excel Macros';
+                                notes = `[AI Transcript Summary - Auditing Flow #${index}]: Subject maps out the validation pipeline for commercial and industrial billing accounts. Process requires cross-checking digital meter reads against contract riders manually for high-volume accounts. Legacy system limitation: Salesforce configuration data frequently desynchronizes from the central SAP instance, requiring manual table matching routines to prevent billing leakage.`;
+                            } else if (dept === 'IT Security') {
+                                pos = 'Cybersecurity Threat Hunter';
+                                skills = 'SIEM Logs, Network Forensic Tracking, Splunk';
+                                notes = `[AI Transcript Summary - Security Tracking #${index}]: Subject outlines the daily operational logic for hunting advanced threats inside operational technology (OT) network boundaries. Analyzes raw access control logs using Splunk dashboards. Mitigation step: If anomalous modbus traffic maps are tracked originating from external IP vectors, the firewall engineer must deploy isolation rules to prevent unauthorized PLC register modifications.`;
+                            } else if (dept === 'Field Engineering') {
+                                pos = 'Field Telemetry Inspector';
+                                skills = 'Fiber Testing, Signal Calibration, Electronics';
+                                notes = `[AI Transcript Summary - Instrument Maintenance #${index}]: Subject breaks down calibration processes for remote telemetry monitoring circuits. Emphasizes tracking optical degradation metrics along long-haul fiber interconnect lines. Workaround: If optical power levels fall below negative 22 decibels, inline cleanings must be conducted on internal connectors using specialized tools to prevent telemetry transmission dropouts.`;
+                            } else if (dept === 'Supply Chain') {
+                                pos = 'Strategic Sourcing Manager';
+                                skills = 'Contract Negotiations, Ariba, Supply Chain Mapping';
+                                notes = `[AI Transcript Summary - Sourcing Protocol #${index}]: Subject outlines lifecycle steps for managing high-voltage circuit component vendors. Tracks raw material lead times across global fabricators. Critical process detail: Standard enterprise purchase orders must include explicit logistics mitigation addendums to ensure freight forwarders provide active tracking feeds during maritime transit steps.`;
+                            } else if (dept === 'Environmental Compliance') {
+                                pos = 'Air Quality Data Auditor';
+                                skills = 'EPA Regulations, CEMS Validation, Analytics';
+                                notes = `[AI Transcript Summary - Emissions Audit #${index}]: Subject describes data reconciliation protocols for continuous air monitoring systems. Outlines processes for reviewing quarterly data accuracy test audits (RATA). Operational step: When telemetry points show calibrations drifts, data flags must be converted to maintenance states inside database scripts to avoid triggering regulatory reporting compliance penalties.`;
+                            } else if (dept === 'Data Analytics') {
+                                pos = 'Operations Intelligence Analyst';
+                                skills = 'Data Pipeline Engineering, Tableau, Python';
+                                notes = `[AI Transcript Summary - Analytics Deployment #${index}]: Subject reviews data aggregation routines feeding production health scoreboards. Telemetry frameworks process hundreds of thousands of streaming points from regional arrays. System bottleneck: Missing timestamp indices occasionally break reporting queries, requiring pre-processing data steps to backfill tracking arrays with linear interpolation metrics.`;
+                            } else {
+                                pos = 'HR Onboarding Lifecycle Specialist';
+                                skills = 'Workday, Enterprise Operations, Coordination';
+                                notes = `[AI Transcript Summary - HR Sync #${index}]: Subject reviews data coordination loops for processing new technical operational hires. Ensures all access privileges map accurately to NERC-CIP baseline positions. Problem area: System configurations fail to pass automated training reminders to new personnel, requiring the specialist to manually distribute security checklist emails on the first day of employment.`;
+                            }
+                            
+                            return {
+                                id: `NRG-${String(index).padStart(3, '0')}`,
+                                name: [
+                                    'James Smith', 'Maria Garcia', 'Robert Johnson', 'Maria Rodriguez', 'David Smith', 'Mary Smith', 'Maria Martinez', 'James Johnson', 'William Smith', 'Ruth Davis',
+                                    'Michael Smith', 'David Johnson', 'Elizabeth Smith', 'Barbara Jones', 'Susan Smith', 'Joseph Johnson', 'Jessica Smith', 'Thomas Smith', 'Sarah Johnson', 'Nancy Smith',
+                                    'Charles Smith', 'Karen Jones', 'Lisa Smith', 'Betty Jones', 'Dorothy Smith', 'Christopher Johnson', 'Sandra Smith', 'Ashley Johnson', 'Kimberly Smith', 'Donna Jones',
+                                    'Emily Smith', 'Carol Jones', 'Michelle Smith', 'Amanda Johnson', 'Emily Johnson', 'Melissa Smith', 'Deborah Smith', 'Stephanie Johnson', 'Rebecca Smith', 'Laura Johnson',
+                                    'Sharon Smith', 'Cynthia Jones', 'Kathleen Smith', 'Amy Johnson', 'Shirley Jones', 'Angela Smith', 'Helen Smith', 'Anna Johnson', 'Brenda Smith', 'Pamela Johnson',
+                                    'Nicole Smith', 'Samantha Johnson', 'Katherine Smith', 'Christine Johnson', 'Debra Smith', 'Rachel Johnson', 'Carolyn Smith', 'Janet Johnson', 'Catherine Smith', 'Maria Hernandez',
+                                    'Heather Smith', 'Diane Jones', 'Virginia Smith', 'Julie Johnson', 'Joyce Jones', 'Victoria Smith', 'Olivia Johnson', 'Kelly Smith', 'Christina Johnson', 'Lauren Smith',
+                                    'Joan Jones', 'Evelyn Smith', 'Judith Johnson', 'Megan Smith', 'Cheryl Jones', 'Andrea Smith', 'Hannah Johnson', 'Martha Smith', 'Jacqueline Johnson', 'Frances Smith'
+                                ][i] || `Employee Staff #${index}`,
+                                department: dept,
+                                position: pos,
+                                skills: skills,
+                                training: index % 5 === 0 ? 'Incomplete' : 'Complete',
+                                equipment: index % 3 === 0 ? 'No' : 'Yes',
+                                exit: index % 11 === 0 ? 'Pending' : 'Not Started',
+                                notes: notes
+                            };
+                        })
+                    ];
+                    localStorage.setItem('nrg_employees', JSON.stringify(seed));
+                }
+            },
+            getEmployees() {
+                return JSON.parse(localStorage.getItem('nrg_employees'));
+            },
+            saveEmployees(data) {
+                localStorage.setItem('nrg_employees', JSON.stringify(data));
+            },
+            createOrUpdateEmployee(employee) {
+                let current = this.getEmployees();
+                const index = current.findIndex(e => e.id === employee.id);
+                if (index !== -1) {
+                    current[index] = employee;
+                } else {
+                    current.push(employee);
+                }
+                this.saveEmployees(current);
+                return employee;
+            },
+            getEmployee(id) {
+                return this.getEmployees().find(e => e.id === id) || null;
+            },
+            searchEmployees(query) {
+                const lower = query.toLowerCase();
+                return this.getEmployees().filter(e => 
+                    e.name.toLowerCase().includes(lower) || 
+                    e.id.toLowerCase().includes(lower) || 
+                    e.department.toLowerCase().includes(lower)
+                );
+            }
+        };
+
+        // --- INIT & TAB ROUTING ---
+        DataLayer.init();
+        window.activeTargetEmployeeId = 'NRG-001';
+
+        const tabs = document.querySelectorAll('nav button');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // --- REGISTRY LOGIC ---
+        const form = document.getElementById('employee-form');
+        const searchInput = document.getElementById('search-input');
+        const employeeList = document.getElementById('employee-list');
+
+        function renderRegistry(filterText = '') {
+            if (!employeeList) return;
+            employeeList.innerHTML = '';
+            const list = filterText ? DataLayer.searchEmployees(filterText) : DataLayer.getEmployees();
+            
+            list.forEach(emp => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${emp.name}</strong> (${emp.id})<br><span style="font-size:12px; color:#666;">${emp.position} · ${emp.department}</span>`;
+                li.addEventListener('click', () => populateFormAndSelect(emp.id));
+                employeeList.appendChild(li);
+            });
+        }
+
+        function populateFormAndSelect(id) {
+            const emp = DataLayer.getEmployee(id);
+            if (!emp) return;
+            
+            window.activeTargetEmployeeId = emp.id;
+            
+            // Populate form
+            document.getElementById('emp-id').value = emp.id;
+            document.getElementById('emp-name').value = emp.name;
+            document.getElementById('emp-dept').value = emp.department;
+            document.getElementById('emp-pos').value = emp.position;
+            document.getElementById('emp-skills').value = emp.skills;
+            document.getElementById('emp-training').value = emp.training;
+            document.getElementById('emp-equip').value = emp.equipment;
+            document.getElementById('emp-exit').value = emp.exit;
+            document.getElementById('emp-notes').value = emp.notes;
+
+            // Show selected banner
+            document.getElementById('selected-profile').style.display = 'block';
+            document.getElementById('target-display').innerHTML = `<strong>Name:</strong> ${emp.name} | <strong>ID:</strong> ${emp.id}<br><strong>Training:</strong> ${emp.training} | <strong>Equipment:</strong> ${emp.equipment}`;
+
+            // Reset chat panels for new user context
+            ['onboarding', 'offboarding'].forEach(agent => {
+                const chat = document.getElementById(`${agent}-chat`);
+                if(chat) chat.innerHTML = `<div class="message bot">System Context aligned to ${emp.name}. Please select a guided prompt above to initialize the session.</div>`;
+                
+                const notice = document.getElementById(`${agent}-lock-notice`);
+                if(notice) notice.style.display = 'block';
+                
+                const area = document.getElementById(`${agent}-input-area`);
+                if(area) { area.style.opacity = '0.4'; area.style.pointerEvents = 'none'; }
+                
+                const inp = document.getElementById(`${agent}-input`);
+                if(inp) inp.disabled = true;
+                
+                const snd = document.getElementById(`${agent}-send`);
+                if(snd) snd.disabled = true;
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emp = {
+                    id: document.getElementById('emp-id').value,
+                    name: document.getElementById('emp-name').value,
+                    department: document.getElementById('emp-dept').value,
+                    position: document.getElementById('emp-pos').value,
+                    skills: document.getElementById('emp-skills').value,
+                    training: document.getElementById('emp-training').value,
+                    equipment: document.getElementById('emp-equip').value,
+                    exit: document.getElementById('emp-exit').value,
+                    notes: document.getElementById('emp-notes').value
+                };
+                DataLayer.createOrUpdateEmployee(emp);
+                renderRegistry();
+                populateFormAndSelect(emp.id);
+                alert(`Record system metadata successfully synched: ${emp.name}`);
+            });
+        }
+
+        if (searchInput) searchInput.addEventListener('input', (e) => renderRegistry(e.target.value));
+
+        // --- ARTIFICIAL AGENTS CHAT LOGIC DRIVERS ---
+        function appendMessageDirect(containerId, text, sender) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const msg = document.createElement('div');
+            msg.className = `message ${sender}`;
+            msg.innerText = text;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function unlockChatInterface(agentType) {
+            document.getElementById(`${agentType}-lock-notice`).style.display = 'none';
+            const inputArea = document.getElementById(`${agentType}-input-area`);
+            inputArea.style.opacity = '1';
+            inputArea.style.pointerEvents = 'auto'; // Fix for the syntax crash
+            document.getElementById(`${agentType}-input`).disabled = false;
+            document.getElementById(`${agentType}-send`).disabled = false;
+            
+            const micBtn = document.getElementById(`${agentType}-mic`);
+            if (micBtn) micBtn.disabled = false;
+        }
+
+        function triggerGuidedPrompt(agent, actionId, actionTitle) {
+            unlockChatInterface(agent);
+            const chatContainerId = `${agent}-chat`;
+            const currentEmployee = DataLayer.getEmployee(window.activeTargetEmployeeId);
+
+            if (!currentEmployee) {
+                appendMessageDirect(chatContainerId, "System Error: No valid contextual employee record selected in the registry.", "bot");
+                return;
+            }
+
+            appendMessageDirect(chatContainerId, `[System Prompt Action initiated]: ${actionTitle} for employee ${currentEmployee.name}`, "user");
+
+            let systemOutput = "";
+
+            if (agent === 'onboarding') {
+                switch(actionId) {
+                    case 'checklist':
+                        systemOutput = `Welcome! As the organization's Onboarding Agent, my goal is to reduce onboarding friction and accelerate productivity for ${currentEmployee.name}. Based on their assignment to the ${currentEmployee.department} department as a ${currentEmployee.position}, here is their tailored Milestone Runway Checklist: Day 1: System Provisioning & Access Verification for core workflows involving ${currentEmployee.skills}. Day 3: Process Deep Dive covering internal team tools. Day 5: Complete mandatory supervisor syncs.`;
+                        break;
+                    case 'policy':
+                        systemOutput = `Hello, I am your Onboarding Agent guide. Let's look clearly at operational guidelines mapping relative to profile data for ${currentEmployee.name}. Current profile status indexes show their operational training track is currently flagged as ${currentEmployee.training}. Per security frameworks, all technical roles must clear training thresholds within 14 business days of hire. Let's schedule a checkpoint sync to ensure this flag moves cleanly to Complete.`;
+                        break;
+                    case 'training':
+                        if (currentEmployee.training === 'Complete') {
+                            systemOutput = `Verification Check complete. ${currentEmployee.name} has already verified all active operational training pathways as COMPLETE. No conflicting scheduling blocks are required at this time. Compliance metrics have been successfully transmitted to HR systems.`;
+                        } else {
+                            systemOutput = `System Tracking Action: Training status is currently marked INCOMPLETE for ${currentEmployee.name}. In accordance with my execution boundaries, I have reviewed their team availability windows. I recommend scheduling dedicated 90-minute isolation blocks on Tuesday and Thursday morning to review field methodologies and process workarounds. Shall I coordinate calendar invites?`;
+                        }
+                        break;
+                    case 'escalate':
+                        systemOutput = `Onboarding Security Subsystem Check: Under my operational rules, I am structured to recognize boundary conditions immediately. If you or ${currentEmployee.name} are encountering issues related to Payroll Disputes, Medical Accommodations, Safety Concerns, or Workplace Conflict, I am programmed to step aside. I do not interpret legal materials or approve policy exceptions. Please confirm if your query involves an active operational roadblock so I can execute an immediate escalation sequence to HR.`;
+                        break;
+                }
+            } else if (agent === 'offboarding') {
+                switch(actionId) {
+                    case 'interview':
+                        systemOutput = `Thank you for taking the time to meet today. My role is to help preserve valuable knowledge and gather feedback that can help the organization improve. This conversation is intended to be constructive, professional, and confidential within company guidelines. Let's begin exploring your structural departure pathing for ${currentEmployee.name}. To understand their day-to-day operations as a ${currentEmployee.position}, my logs show their historical transcript notes state: "${currentEmployee.notes.substring(0, 150)}..." Can you expand clearly on the main technical bottlenecks encountered during this specific workflow cycle?`;
+                        break;
+                    case 'transfer':
+                        systemOutput = `Generating Structured Knowledge Transfer Log Asset for Management Review. ROLE CAPTURE STRUCTURE: Managing daily workloads as ${currentEmployee.position} within the ${currentEmployee.department} team. SYSTEM TOOL METRICS: High-level dependency track mapped to ${currentEmployee.skills}. INTERNAL PROCESS WORKAROUND SUMMARY: Reviewing active transcriber notes payload: "${currentEmployee.notes}". This data block has been successfully converted into a structured system archive artifact to ensure their replacement has immediate reference material.`;
+                        break;
+                    case 'risk':
+                        let equipmentRisk = currentEmployee.equipment === 'Yes' ? "Warning: Workstation asset equipment deployment tracking is active YES. Security protocol requires manual device hardware revocation to prevent access leaks." : "Asset check complete: No corporate hardware is currently checked out to this profile index.";
+                        systemOutput = `Executive Operational Risk Analytics Report Profile TARGET ${currentEmployee.id}. VOLATILITY CHECK: Critical tribal knowledge risk detected. The target notes identify legacy software workarounds and manual cache-clearing procedures that are undocumented in team training wikis. HARDWARE STATE: ${equipmentRisk}. LIFE-CYCLE TRACK: Exit Interview Status parameter is currently logged as ${currentEmployee.exit}. Immediate documentation update recommended before authorization tokens are terminated.`;
+                        break;
+                    case 'feedback':
+                        systemOutput = `Compiling Departure Feedback Pipeline Matrices under HR Supervision for ${currentEmployee.name}. DEPARTURE VECTOR ANALYSIS: Cross-referencing operational logs to isolate friction points. Notes indicate systemic procedural delays and interface challenges within the ${currentEmployee.department} software stack. LEADERSHIP METRICS: Team dynamics tracking remains neutral. The departing employee highlights technical dependencies as the primary operational hurdle rather than managerial conflicts. This feedback is securely compiled for the upcoming HR Executive Improvement Review.`;
+                        break;
+                }
+            }
+
+            setTimeout(() => {
+                streamMessage(chatContainerId, systemOutput, "bot");
+            }, 400);
+        }
+
+        function handleCustomUserInput(agentType) {
+            const inputField = document.getElementById(`${agentType}-input`);
+            if (!inputField) return;
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            const chatContainerId = `${agentType}-chat`;
+            appendMessageDirect(chatContainerId, text, "user");
+            inputField.value = '';
+
+            const currentEmployee = DataLayer.getEmployee(window.activeTargetEmployeeId) || {name: "Employee"};
+            
+            setTimeout(() => {
+                let fallbackResponse = "";
+                if (agentType === 'onboarding') {
+                    fallbackResponse = `As the Onboarding Agent, I am processing your message regarding ${currentEmployee.name}. I am programmed to maintain accuracy over confidence. If this request maps to training logs, task configurations, or workflow settings, I can pull that vector. However, "I don't have enough information to answer that accurately. Please contact your manager, HR representative, department lead, or the designated subject matter expert for guidance."`;
+                } else {
+                    fallbackResponse = `Acknowledged response parameters for the ${currentEmployee.name} exit sequence tracker. I am observing and logging this context neutrally under human resource operational oversight. Let me know if you would like me to parse these details directly into our Knowledge Transfer or Executive Summary files.`;
+                }
+                streamMessage(chatContainerId, fallbackResponse, "bot");
+            }, 500);
+        }
+
+        // Attach listeners safely
+        ['onboarding', 'offboarding'].forEach(agent => {
+            const sendBtn = document.getElementById(`${agent}-send`);
+            const inpFld = document.getElementById(`${agent}-input`);
+            if (sendBtn) sendBtn.addEventListener('click', () => handleCustomUserInput(agent));
+            if (inpFld) inpFld.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleCustomUserInput(agent); });
+        });
+
+        // ==========================================
+        // --- LIVE CONVERSATIONAL VOICE ENGINE ---
+        // ==========================================
+        let activeSpeaker = window.speechSynthesis;
+        let isLiveMicActive = false; 
+        let isAiSpeaking = false;    
+        let recognitionInstance = null;
+
+        function speakText(text, onSpeechFinished) {
+            if (!activeSpeaker) return;
+            if (activeSpeaker.speaking) activeSpeaker.cancel();
+            
+            isAiSpeaking = true;
+            let cleanText = text.replace(/•/g, '').replace(/\[|\]/g, '').replace(/\n/g, ' ');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            
+            utterance.rate = 1.05;
+            utterance.pitch = 1.0;
+            utterance.lang = 'en-US';
+
+            utterance.onend = () => { isAiSpeaking = false; if (onSpeechFinished) onSpeechFinished(); };
+            utterance.onerror = () => { isAiSpeaking = false; if (onSpeechFinished) onSpeechFinished(); };
+
+            activeSpeaker.speak(utterance);
+        }
+
+        // Streaming text combined with audio trigger
+        function streamMessage(containerId, fullText, senderClass) {
+            const container = document.getElementById(containerId);
+            const msgNode = document.createElement('div');
+            msgNode.className = `message ${senderClass} streaming-cursor`;
+            container.appendChild(msgNode);
+            
+            const words = fullText.split(' ');
+            let currentWordIndex = 0;
+            
+            const interval = setInterval(() => {
+                if (currentWordIndex < words.length) {
+                    msgNode.innerText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex];
+                    currentWordIndex++;
+                    container.scrollTop = container.scrollHeight;
+                } else {
+                    clearInterval(interval);
+                    msgNode.classList.remove('streaming-cursor');
+                }
+            }, 45);
+
+            if (senderClass === 'bot') {
+                speakText(fullText, () => {
+                    if (isLiveMicActive && recognitionInstance && !isAiSpeaking) {
+                        try { 
+                            recognitionInstance.start(); 
+                            const activeInput = document.querySelector('.chat-input-area input:not([disabled])');
+                            if(activeInput) activeInput.placeholder = "Listening for your reply...";
+                        } catch(e) {}
+                    }
+                });
+            }
+        }
+
+        function enableLiveVoiceMode(agentType) {
+            const micBtn = document.getElementById(`${agentType}-mic`);
+            const inputField = document.getElementById(`${agentType}-input`);
+            if (!micBtn || !inputField) return;
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                micBtn.title = "Voice not supported in this browser";
+                micBtn.style.opacity = "0.3";
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognitionInstance = recognition;
+            recognition.continuous = false; 
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            micBtn.addEventListener('click', () => {
+                isLiveMicActive = !isLiveMicActive;
+
+                if (isLiveMicActive) {
+                    micBtn.innerText = '🔴 Live';
+                    micBtn.style.backgroundColor = '#ffeef2';
+                    micBtn.style.color = '#EC008C';
+                    micBtn.style.fontWeight = 'bold';
+                    micBtn.style.borderRadius = '4px';
+                    inputField.placeholder = "Listening...";
+                    try { recognition.start(); } catch(e){}
+                } else {
+                    micBtn.innerText = '🎙️';
+                    micBtn.style.backgroundColor = 'white';
+                    micBtn.style.color = 'inherit';
+                    micBtn.style.fontWeight = 'normal';
+                    inputField.placeholder = "Type or speak your message here...";
+                    recognition.stop();
+                    if (activeSpeaker && activeSpeaker.speaking) activeSpeaker.cancel(); 
+                }
+            });
+
+            recognition.onresult = (event) => {
+                if (!isLiveMicActive) return; 
+                const transcript = event.results[0][0].transcript;
+                inputField.value = transcript;
+                recognition.stop();
+                inputField.placeholder = "Agent is thinking...";
+                setTimeout(() => { handleCustomUserInput(agentType); }, 300);
+            };
+
+            recognition.onend = () => {
+                if (isLiveMicActive && !isAiSpeaking) {
+                    try { recognition.start(); inputField.placeholder = "Listening..."; } catch(e) {}
+                }
+            };
+        }
+
+        // Boot system operations
+        renderRegistry();
+        populateFormAndSelect('NRG-001');
+        enableLiveVoiceMode('onboarding');
+        enableLiveVoiceMode('offboarding');
+    </script>
+</body>
+</html>
