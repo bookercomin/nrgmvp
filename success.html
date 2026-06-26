@@ -1,6 +1,66 @@
-<p id="notes-output"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Complete</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Submission complete</h1>
+    <p id="notes-output"></p>
+    <div id="questions-container" style="margin-top: 20px;"></div>
 
-<script>
-    const notes = localStorage.getItem('empNotes');
-    document.getElementById('notes-output').textContent = notes || 'No notes submitted.';
-</script>
+    <script>
+        const notesOutput = document.getElementById('notes-output');
+        const questionsContainer = document.getElementById('questions-container');
+        const notes = localStorage.getItem('empNotes') || '';
+
+        notesOutput.textContent = notes || 'No notes submitted.';
+
+        async function loadQuestions() {
+            if (!notes) {
+                questionsContainer.innerHTML = '<p>No notes were available to generate questions.</p>';
+                return;
+            }
+
+            questionsContainer.innerHTML = '<p>Generating questions...</p>';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/generate-questions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ notes })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    questionsContainer.innerHTML = `<p style="color: #b91c1c;">${data.error || 'Unable to generate questions.'}</p>`;
+                    return;
+                }
+
+                const questions = Array.isArray(data.questions) ? data.questions : [];
+                if (!questions.length) {
+                    questionsContainer.innerHTML = '<p>No questions were returned.</p>';
+                    return;
+                }
+
+                questionsContainer.innerHTML = `
+                    <h3>Suggested questions</h3>
+                    <ol>
+                        ${questions.map(q => `<li>${q}</li>`).join('')}
+                    </ol>
+                `;
+            } catch (error) {
+                questionsContainer.innerHTML = '<p style="color: #b91c1c;">Could not reach the local API server. Make sure it is running on localhost:3000.</p>';
+            }
+        }
+
+        loadQuestions();
+    </script>
+</body>
+</html>

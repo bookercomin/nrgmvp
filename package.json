@@ -1,0 +1,10 @@
+{
+  "name": "nrgmvp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local backend for generating questions from employee notes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

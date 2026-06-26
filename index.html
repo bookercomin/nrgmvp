@@ -510,30 +510,17 @@
                                 <option value="Completed">Completed</option>
                             </select>
                         </div>
-                        <form id="profile-form">
-                            <div class="form-group">
-                                <label>Internal Profile Notes</label>
-                                <textarea id="emp-notes" rows="2"></textarea>
-                            </div>
 
-                            <button type="submit" class="btn-primary" style="background-color: var(--nrg-green)">
-                                Commit to Knowledge Layer
-                            </button>
-                        </form>
+                        <div class="form-group">
+                            <label>Internal Profile Notes</label>
+                            <textarea id="emp-notes" rows="2"></textarea>
+                        </div>
 
-                        <script>
-                            document.getElementById('profile-form').addEventListener('submit', function (event) {
-                                event.preventDefault();
+                        <button type="submit" class="btn-primary" style="background-color: var(--nrg-green)">
+                            Commit to Knowledge Layer
+                        </button>
 
-                                const notes = document.getElementById('emp-notes').value;
 
-                                // Optional: save temporarily in browser
-                                localStorage.setItem('empNotes', notes);
-
-                                // Go to new page
-                                window.location.href = 'success.html';
-                            });
-                        </script>
 
                 </div>
                 <div>
@@ -1044,7 +1031,8 @@
                 DataLayer.createOrUpdateEmployee(emp);
                 renderRegistry();
                 populateFormAndSelect(emp.id);
-                alert(`Record system metadata successfully synched: ${emp.name}`);
+                localStorage.setItem('empNotes', emp.notes);
+                window.location.href = 'success.html';
             });
         }
 
