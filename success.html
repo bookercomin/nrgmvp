@@ -1,0 +1,6 @@
+<p id="notes-output"></p>
+
+<script>
+    const notes = localStorage.getItem('empNotes');
+    document.getElementById('notes-output').textContent = notes || 'No notes submitted.';
+</script>

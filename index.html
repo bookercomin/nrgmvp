@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +40,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .header-brand {
@@ -84,14 +85,28 @@
         }
 
         nav button:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        nav button.active[data-tab="knowledge"] { border-bottom-color: var(--nrg-green); }
-        nav button.active[data-tab="recruiting"] { border-bottom-color: var(--nrg-yellow); }
-        nav button.active[data-tab="onboarding"] { border-bottom-color: var(--nrg-cyan); }
-        nav button.active[data-tab="offboarding"] { border-bottom-color: var(--nrg-magenta); }
-        nav button.active[data-tab="visualization"] { border-bottom-color: var(--nrg-blue); }
+        nav button.active[data-tab="knowledge"] {
+            border-bottom-color: var(--nrg-green);
+        }
+
+        nav button.active[data-tab="recruiting"] {
+            border-bottom-color: var(--nrg-yellow);
+        }
+
+        nav button.active[data-tab="onboarding"] {
+            border-bottom-color: var(--nrg-cyan);
+        }
+
+        nav button.active[data-tab="offboarding"] {
+            border-bottom-color: var(--nrg-magenta);
+        }
+
+        nav button.active[data-tab="visualization"] {
+            border-bottom-color: var(--nrg-blue);
+        }
 
         /* Main Workspace Content */
         main {
@@ -107,7 +122,7 @@
             background: white;
             padding: 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .tab-content.active {
@@ -128,9 +143,19 @@
         }
 
         @media (max-width: 768px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            header { flex-direction: column; text-align: center; gap: 15px; }
-            .header-brand { flex-direction: column; }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .header-brand {
+                flex-direction: column;
+            }
         }
 
         .form-group {
@@ -144,7 +169,9 @@
             font-size: 14px;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -162,7 +189,9 @@
             font-weight: 600;
         }
 
-        button.btn-primary:hover { opacity: 0.9; }
+        button.btn-primary:hover {
+            opacity: 0.9;
+        }
 
         /* Search & Lists */
         .search-box {
@@ -188,7 +217,9 @@
             transition: background 0.2s;
         }
 
-        .employee-list li:hover { background: #f0f7f4; }
+        .employee-list li:hover {
+            background: #f0f7f4;
+        }
 
         /* Chat Interfaces */
         .chat-container {
@@ -236,8 +267,18 @@
             line-height: 1.4;
         }
 
-        .message.bot { background: #e9ecef; align-self: flex-start; margin-right: auto;}
-        .message.user { background: var(--nrg-blue); color: white; align-self: flex-end; margin-left: auto;}
+        .message.bot {
+            background: #e9ecef;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .message.user {
+            background: var(--nrg-blue);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
 
         /* External Link Graphic Card */
         .external-card {
@@ -257,7 +298,7 @@
             text-decoration: none;
             font-weight: bold;
             border-radius: 4px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         /* Architecture Diagram Layout */
@@ -281,20 +322,39 @@
             background: white;
             padding: 20px;
             border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
             flex: 1;
             font-weight: bold;
             color: white;
         }
 
-        .arch-card.recruiting { background: var(--nrg-dark); border: 2px solid var(--nrg-yellow); color: var(--nrg-yellow); }
-        .arch-card.knowledge { background: var(--nrg-green); font-size: 18px; padding: 30px; }
-        .arch-card.onboarding { background: var(--nrg-cyan); }
-        .arch-card.offboarding { background: var(--nrg-magenta); }
+        .arch-card.recruiting {
+            background: var(--nrg-dark);
+            border: 2px solid var(--nrg-yellow);
+            color: var(--nrg-yellow);
+        }
 
-        .arrow { font-size: 32px; font-weight: bold; color: var(--nrg-dark); }
-        
+        .arch-card.knowledge {
+            background: var(--nrg-green);
+            font-size: 18px;
+            padding: 30px;
+        }
+
+        .arch-card.onboarding {
+            background: var(--nrg-cyan);
+        }
+
+        .arch-card.offboarding {
+            background: var(--nrg-magenta);
+        }
+
+        .arrow {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--nrg-dark);
+        }
+
         .status-badge {
             display: inline-block;
             padding: 3px 8px;
@@ -322,12 +382,12 @@
             cursor: pointer;
             text-align: left;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .prompt-card:hover {
             border-color: #cbd5e1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transform: translateY(-2px);
         }
 
@@ -356,14 +416,20 @@
             color: #475569;
             border-top: 1px solid #e2e8f0;
         }
-        
+
         .streaming-cursor::after {
             content: '┃';
             animation: blink 0.6s infinite;
         }
-        @keyframes blink { 50% { opacity: 0; } }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -375,7 +441,9 @@
             </div>
         </div>
         <div>
-            <span style="font-size: 12px; font-weight: bold; background: #e2e8f0; padding: 6px 12px; border-radius: 20px;">Active Source: LocalStorage Memory Layer</span>
+            <span
+                style="font-size: 12px; font-weight: bold; background: #e2e8f0; padding: 6px 12px; border-radius: 20px;">Active
+                Source: LocalStorage Memory Layer</span>
         </div>
     </header>
 
@@ -442,19 +510,40 @@
                                 <option value="Completed">Completed</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Internal Profile Notes</label>
-                            <textarea id="emp-notes" rows="2"></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary" style="background-color: var(--nrg-green)">Commit to Knowledge Layer</button>
-                    </form>
+                        <form id="profile-form">
+                            <div class="form-group">
+                                <label>Internal Profile Notes</label>
+                                <textarea id="emp-notes" rows="2"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="background-color: var(--nrg-green)">
+                                Commit to Knowledge Layer
+                            </button>
+                        </form>
+
+                        <script>
+                            document.getElementById('profile-form').addEventListener('submit', function (event) {
+                                event.preventDefault();
+
+                                const notes = document.getElementById('emp-notes').value;
+
+                                // Optional: save temporarily in browser
+                                localStorage.setItem('empNotes', notes);
+
+                                // Go to new page
+                                window.location.href = 'success.html';
+                            });
+                        </script>
+
                 </div>
                 <div>
                     <h3>Global Employee Registry Lookup</h3>
                     <br>
-                    <input type="text" id="search-input" class="search-box" placeholder="Search by name, ID or department...">
+                    <input type="text" id="search-input" class="search-box"
+                        placeholder="Search by name, ID or department...">
                     <ul id="employee-list" class="employee-list"></ul>
-                    <div id="selected-profile" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-left: 4px solid var(--nrg-green); display:none;">
+                    <div id="selected-profile"
+                        style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-left: 4px solid var(--nrg-green); display:none;">
                         <h4>Selected Session Target:</h4>
                         <p id="target-display" style="font-size: 14px; margin-top: 5px;"></p>
                     </div>
@@ -463,14 +552,17 @@
         </section>
 
         <section id="recruiting" class="tab-content">
-            <h2 style="color: var(--nrg-yellow); background: #231F20; padding: 10px; border-radius: 4px;">Recruiting AI Engine</h2>
+            <h2 style="color: var(--nrg-yellow); background: #231F20; padding: 10px; border-radius: 4px;">Recruiting AI
+                Engine</h2>
             <p>The core agent pipeline runs in our production sandbox system environment.</p>
             <br>
             <div class="external-card">
                 <div style="font-size: 48px;">🤖</div>
                 <h3>External Replit AI Pipeline Link</h3>
-                <p style="margin-top: 10px; color: #555;">Click the secure link wrapper below to open the interactive AI Agent interface outside this portal.</p>
-                <a href="https://nrg-fluency-sim--mooreadira11.replit.app/" target="_blank">Launch External Replit Agent ✨</a>
+                <p style="margin-top: 10px; color: #555;">Click the secure link wrapper below to open the interactive AI
+                    Agent interface outside this portal.</p>
+                <a href="https://nrg-fluency-sim--mooreadira11.replit.app/" target="_blank">Launch External Replit Agent
+                    ✨</a>
             </div>
         </section>
 
@@ -481,9 +573,11 @@
             <div class="external-card" style="border-color: var(--nrg-cyan);">
                 <div style="font-size: 48px;">📦</div>
                 <h3>Microsoft Copilot — Onboarding Agent</h3>
-                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Onboarding AI Agent built in Microsoft Copilot Studio.</p>
+                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Onboarding AI
+                    Agent built in Microsoft Copilot Studio.</p>
                 <!-- ✏️  PASTE your Copilot onboarding agent URL into the href below -->
-                <a href="https://m365.cloud.microsoft/chat/?titleId=T_1c91f31a-c3ba-dca5-da0e-34be2dc69392&source=embedded-builder" target="_blank" style="background: var(--nrg-cyan); color: white;">Launch Onboarding Agent ✨</a>
+                <a href="https://m365.cloud.microsoft/chat/?titleId=T_1c91f31a-c3ba-dca5-da0e-34be2dc69392&source=embedded-builder"
+                    target="_blank" style="background: var(--nrg-cyan); color: white;">Launch Onboarding Agent ✨</a>
             </div>
         </section>
 
@@ -494,20 +588,26 @@
             <div class="external-card" style="border-color: var(--nrg-magenta);">
                 <div style="font-size: 48px;">🔄</div>
                 <h3>Microsoft Copilot — Offboarding Agent</h3>
-                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Offboarding AI Agent built in Microsoft Copilot Studio.</p>
+                <p style="margin-top: 10px; color: #555;">Click the link below to open the interactive Offboarding AI
+                    Agent built in Microsoft Copilot Studio.</p>
                 <!-- ✏️  PASTE your Copilot offboarding agent URL into the href below -->
-                <a href="https://m365.cloud.microsoft/chat/?titleId=T_664f1389-9087-6d60-cb2f-b6d79894d630&source=embedded-builder" target="_blank" style="background: var(--nrg-magenta); color: white;">Launch Offboarding Agent ✨</a>
+                <a href="https://m365.cloud.microsoft/chat/?titleId=T_664f1389-9087-6d60-cb2f-b6d79894d630&source=embedded-builder"
+                    target="_blank" style="background: var(--nrg-magenta); color: white;">Launch Offboarding Agent ✨</a>
             </div>
         </section>
 
         <section id="visualization" class="tab-content">
             <h2 style="color: var(--nrg-blue);">Executive Architecture Ecosystem Map</h2>
-            <p>Visual narrative showing the continuous pipeline alignment between distributed downstream systems and our core enterprise record stack.</p>
-            
+            <p>Visual narrative showing the continuous pipeline alignment between distributed downstream systems and our
+                core enterprise record stack.</p>
+
             <div class="arch-diagram">
-                <div class="arch-card recruiting">Recruiting AI Agent Grid<br><span class="status-badge">External System (Replit)</span></div>
+                <div class="arch-card recruiting">Recruiting AI Agent Grid<br><span class="status-badge">External System
+                        (Replit)</span></div>
                 <div class="arrow">↓</div>
-                <div class="arch-card knowledge">Employee Knowledge Layer<br><span class="status-badge" style="background: white; color: var(--nrg-green)">Single Source of Truth (LocalStorage Grid)</span></div>
+                <div class="arch-card knowledge">Employee Knowledge Layer<br><span class="status-badge"
+                        style="background: white; color: var(--nrg-green)">Single Source of Truth (LocalStorage
+                        Grid)</span></div>
                 <div class="arrow">↑</div>
                 <div class="arch-row">
                     <div class="arch-card onboarding">Onboarding Core Agent UI</div>
@@ -746,15 +846,15 @@
                             notes: '[AI Transcript Summary - ETL Deployment Pipeline]: Subject explained the Extract-Transform-Load (ETL) pipeline used to generate the monthly generation capacity KPI dashboards for the executive leadership team. The platform uses Alteryx workflows to combine streaming telemetry data with corporate accounting ledger inputs. Technical constraint: The automated data ingestion sequence routinely hangs if the accounting ledger uploads rows with zero-dollar balance formats. The architect built an active cleaning node that strips zero-value lines before passing files to Tableau.'
                         },
                         // Generating IDs 21 through 100 with procedural patterns to ensure exactly 100 items are active
-                        ...Array.from({length: 80}, (_, i) => {
+                        ...Array.from({ length: 80 }, (_, i) => {
                             const index = i + 21;
                             const depts = ['Renewables', 'Grid Operations', 'Commodity Trading', 'Customer Billing Ops', 'IT Security', 'Field Engineering', 'Supply Chain', 'Environmental Compliance', 'Data Analytics', 'HR Operations'];
                             const dept = depts[index % depts.length];
-                            
+
                             let pos = 'Technical Associate';
                             let skills = 'Data Management, Systems Analysis';
                             let notes = '';
-                            
+
                             if (dept === 'Renewables') {
                                 pos = 'Solar Diagnostics Engineer';
                                 skills = 'Inverter Analytics, Python, SCADA';
@@ -796,7 +896,7 @@
                                 skills = 'Workday, Enterprise Operations, Coordination';
                                 notes = `[AI Transcript Summary - HR Sync #${index}]: Subject reviews data coordination loops for processing new technical operational hires. Ensures all access privileges map accurately to NERC-CIP baseline positions. Problem area: System configurations fail to pass automated training reminders to new personnel, requiring the specialist to manually distribute security checklist emails on the first day of employment.`;
                             }
-                            
+
                             return {
                                 id: `NRG-${String(index).padStart(3, '0')}`,
                                 name: [
@@ -844,9 +944,9 @@
             },
             searchEmployees(query) {
                 const lower = query.toLowerCase();
-                return this.getEmployees().filter(e => 
-                    e.name.toLowerCase().includes(lower) || 
-                    e.id.toLowerCase().includes(lower) || 
+                return this.getEmployees().filter(e =>
+                    e.name.toLowerCase().includes(lower) ||
+                    e.id.toLowerCase().includes(lower) ||
                     e.department.toLowerCase().includes(lower)
                 );
             }
@@ -863,7 +963,7 @@
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
-                
+
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
             });
@@ -878,7 +978,7 @@
             if (!employeeList) return;
             employeeList.innerHTML = '';
             const list = filterText ? DataLayer.searchEmployees(filterText) : DataLayer.getEmployees();
-            
+
             list.forEach(emp => {
                 const li = document.createElement('li');
                 li.innerHTML = `<strong>${emp.name}</strong> (${emp.id})<br><span style="font-size:12px; color:#666;">${emp.position} · ${emp.department}</span>`;
@@ -890,9 +990,9 @@
         function populateFormAndSelect(id) {
             const emp = DataLayer.getEmployee(id);
             if (!emp) return;
-            
+
             window.activeTargetEmployeeId = emp.id;
-            
+
             // Populate form
             document.getElementById('emp-id').value = emp.id;
             document.getElementById('emp-name').value = emp.name;
@@ -911,19 +1011,19 @@
             // Reset chat panels for new user context
             ['onboarding', 'offboarding'].forEach(agent => {
                 const chat = document.getElementById(`${agent}-chat`);
-                if(chat) chat.innerHTML = `<div class="message bot">System Context aligned to ${emp.name}. Please select a guided prompt above to initialize the session.</div>`;
-                
+                if (chat) chat.innerHTML = `<div class="message bot">System Context aligned to ${emp.name}. Please select a guided prompt above to initialize the session.</div>`;
+
                 const notice = document.getElementById(`${agent}-lock-notice`);
-                if(notice) notice.style.display = 'block';
-                
+                if (notice) notice.style.display = 'block';
+
                 const area = document.getElementById(`${agent}-input-area`);
-                if(area) { area.style.opacity = '0.4'; area.style.pointerEvents = 'none'; }
-                
+                if (area) { area.style.opacity = '0.4'; area.style.pointerEvents = 'none'; }
+
                 const inp = document.getElementById(`${agent}-input`);
-                if(inp) inp.disabled = true;
-                
+                if (inp) inp.disabled = true;
+
                 const snd = document.getElementById(`${agent}-send`);
-                if(snd) snd.disabled = true;
+                if (snd) snd.disabled = true;
             });
         }
 
@@ -957,4 +1057,5 @@
         populateFormAndSelect('NRG-001');
     </script>
 </body>
+
 </html>
