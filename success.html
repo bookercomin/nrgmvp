@@ -7,6 +7,9 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
         code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 4px; }
+        .question-card { margin: 1rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+        textarea { width: 100%; min-height: 80px; margin-top: 0.5rem; padding: 0.5rem; }
+        button { margin-top: 1rem; padding: 0.6rem 1rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -20,6 +23,42 @@
         const notes = localStorage.getItem('empNotes') || '';
 
         notesOutput.textContent = notes || 'No notes submitted.';
+
+        function saveResponses(questions, answers) {
+            const data = {
+                notes,
+                questions,
+                answers,
+                savedAt: new Date().toISOString()
+            };
+            localStorage.setItem('questionResponses', JSON.stringify(data));
+        }
+
+        function renderQuestionForm(questions) {
+            const saved = JSON.parse(localStorage.getItem('questionResponses') || '{}');
+            const savedAnswers = saved.answers || [];
+
+            questionsContainer.innerHTML = `
+                <h3>Suggested questions</h3>
+                <form id="answers-form">
+                    ${questions.map((q, index) => `
+                        <div class="question-card">
+                            <strong>${index + 1}. ${q}</strong>
+                            <textarea name="answer-${index}" placeholder="Type your answer here...">${savedAnswers[index] || ''}</textarea>
+                        </div>
+                    `).join('')}
+                    <button type="submit">Save answers</button>
+                </form>
+            `;
+
+            document.getElementById('answers-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const answers = questions.map((_, index) => formData.get(`answer-${index}`) || '');
+                saveResponses(questions, answers);
+                alert('Answers saved.');
+            });
+        }
 
         async function loadQuestions() {
             if (!notes) {
@@ -49,12 +88,7 @@
                     return;
                 }
 
-                questionsContainer.innerHTML = `
-                    <h3>Suggested questions</h3>
-                    <ol>
-                        ${questions.map(q => `<li>${q}</li>`).join('')}
-                    </ol>
-                `;
+                renderQuestionForm(questions);
             } catch (error) {
                 questionsContainer.innerHTML = '<p style="color: #b91c1c;">Could not reach the local API server. Make sure it is running on localhost:3000.</p>';
             }
